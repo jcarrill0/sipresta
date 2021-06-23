@@ -1,0 +1,126 @@
+{
+    "customers": [
+        {
+            "id": 1,
+            "avartar": "https://s3.amazonaws.com/uifaces/faces/twitter/justinrob/128.jpg",
+            "city": "New Amieshire",
+            "email": "Leora13@yahoo.com",
+            "firstName": "Ernest",
+            "lastName": "Schuppe",
+            "street": "Ratke Port",
+            "zipCode": "17026-3154",
+            "date": "2016-09-23T07:57:40.195Z",
+            "bs": "global drive functionalities",
+            "catchPhrase": "Intuitive impactful software",
+            "companyName": "Lebsack - Nicolas",
+            "words": "saepe et omnis",
+            "sentence": "Quos aut sunt id nihil qui.",
+            "stars": 820,
+            "followers": 70
+        },
+        {
+            "id": 2,
+            "avartar": "https://s3.amazonaws.com/uifaces/faces/twitter/thaisselenator_/128.jpg",
+            "city": "New Gust",
+            "email": "Mose_Gerhold51@yahoo.com",
+            "firstName": "Janis",
+            "lastName": "Vandervort",
+            "street": "Dickinson dataFields",
+            "zipCode": "43767",
+            "date": "2017-03-06T09:59:12.551Z",
+            "bs": "e-business maximize bandwidth",
+            "catchPhrase": "De-engineered discrete secured line",
+            "companyName": "Glover - Hermiston",
+            "words": "deleniti dolor nihil",
+            "sentence": "Illo quidem libero corporis laborum.",
+            "stars": 1100,
+            "followers": 170
+        },
+        {
+            "id": 3,
+            "avartar": "https://s3.amazonaws.com/uifaces/faces/twitter/arpitnj/128.jpg",
+            "city": "Lefflerstad",
+            "email": "Frieda.Sauer61@gmail.com",
+            "firstName": "Makenzie",
+            "lastName": "Bode",
+            "street": "Legros Divide",
+            "zipCode": "54812",
+            "date": "2016-12-08T13:44:26.557Z",
+            "bs": "plug-and-play e-enable content",
+            "catchPhrase": "Ergonomic 6th generation challenge",
+            "companyName": "Williamson - Kassulke",
+            "words": "quidem earum magnam",
+            "sentence": "Nam qui perferendis ut rem vitae saepe.",
+            "stars": 610,
+            "followers": 170
+        }
+    ],
+    "loans": [
+        {
+            "id": 1,
+            "codigo": "00026",
+            "clienteId": 2,
+            "montoCredito": 10000,
+            "montoIntereses": 3000,
+            "montoTotal": 13000,
+            "montoCuota": 1000,
+            "cuotas": 13,
+            "interes": 30,
+            "pago": "quincenal",
+            "fechaPrestamo": "6/5/2021",
+            "estado": "pendiente"
+        },
+        {
+            "id": 2,
+            "codigo": "00025",
+            "clienteId": 1,
+            "montoCredito": 20000,
+            "montoIntereses": 2000,
+            "montoTotal": 22000,
+            "montoCuota": 1692.31,
+            "cuotas": 13,
+            "interes": 10,
+            "pago": "semanal",
+            "fechaPrestamo": "5/29/2021",
+            "estado": "pendiente"
+        },
+        {
+            "id": 3,
+            "codigo": "00024",
+            "clienteId": 3,
+            "montoCredito": 15000,
+            "montoIntereses": 1500,
+            "montoTotal": 16500,
+            "montoCuota": 1269.23,
+            "cuotas": 13,
+            "interes": 10,
+            "pago": "semanal",
+            "fechaPrestamo": "5/29/2021",
+            "estado": "pendiente"
+        }
+    ],
+    "references": [
+        {
+            "id": 1,
+            "clienteId": 3,
+            "firstName": "Juana",
+            "lastName": "Vargas",
+            "typeReference": "personal",
+            "phoneFirst": "72986272",
+            "phoneTwo": "70564438",
+            "email": "josecarrillo8@gmail.com"
+        }
+    ],
+    "payments": [
+        {}
+    ],
+    "employees": [
+        {}
+    ],
+    "expenses": [
+        {}
+    ],
+    "users": [
+        {}
+    ]
+}
