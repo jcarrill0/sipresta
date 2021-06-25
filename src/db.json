@@ -53,6 +53,22 @@
             "sentence": "Nam qui perferendis ut rem vitae saepe.",
             "stars": 610,
             "followers": 170
+        },
+        {
+            "id": 1,
+            "firstName": "José",
+            "lastName": "Carrillo",
+            "typeId": "fisica",
+            "numId": "702000432",
+            "nationality": "Costa Rica",
+            "telephone": "72986272",
+            "mobilphone": "89434328",
+            "email": "josecarrillo8@gmail.com",
+            "gender": "masculino",
+            "maritalStatus": "casado",
+            "jobOccupation": "pastor",
+            "address": "calle monge",
+            "notes": ""
         }
     ],
     "loans": [
