@@ -60,12 +60,12 @@ export default function ModalCustomer() {
     }
 
     const addNewCustomer = () => {
-        // setCustomer({ ...customer, ['id']: 5 })
-        // setReference({ ...reference, ['clienteId']: customer.id })
         customer.id = 5
         reference.clienteId = customer.id
-        addCustomer(customer)
-        addReference(reference)
+        console.log(customer);
+        console.log(reference);
+        // addCustomer(customer)
+        // addReference(reference)
         setModal(!modal)
     }
 

@@ -9,6 +9,7 @@ let customerStore = set => ({
         try {
             const response = await loanEndpoint.get('/customers')
             const { data } = response
+            console.log(data);
             set({ customerList: data })
         } catch (error) {
             console.error(error);
@@ -39,7 +40,9 @@ let referenceStore = set => ({
     },
     addReference: async reference => {
         try {
-            await loanEndpoint.post('/references', reference)
+            console.log(reference);
+            const resp = await loanEndpoint.post('/references', reference)
+            console.log(resp);
             set(state => ({ referenceList: [...state.referenceList, reference] }))
         } catch (error) {
             console.error(error);

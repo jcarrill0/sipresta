@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
+import overlayFactory from 'react-bootstrap-table2-overlay';
 import { Button } from 'reactstrap';
 import ReactTooltip from 'react-tooltip'
 
@@ -7,21 +8,36 @@ import ReactTooltip from 'react-tooltip'
 // import ModalBtn from 'components/Modal/ModalBtn';
 import ModalCustomer from 'components/Modal/ModalCustomer';
 
-import { useCustomerStore } from '../store/store'
+import { useCustomerStore, useReferenceStore } from '../store/store'
 
 
 
 const CustomersTable = () => {
+    const addReference = useReferenceStore(state => state.addReference)
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const customerList = useCustomerStore(state => state.customerList)
 
+    // const [loading, setLoading] = useState(true)
+    // const [spinner, setSpinner] = useState(true)
+
+    // let prueba =  {
+    //     clienteId: 3,
+    //     firstName: "Juana",
+    //     lastName: "Vargas",
+    //     typeReference: "personal",
+    //     phoneFirst: "72986272",
+    //     phoneTwo: "70564438",
+    //     email: "josecarrillo8@gmail.com"
+    // }
+
     useEffect(() => {
         loadCustomers()
-    }, [])
+        // addReference(prueba)
+    }, [loadCustomers])
 
     const columns = [
         {
-            dataField: "id",
+            dataField: "numId",
             text: "Id",
             sort: true
         },
@@ -31,20 +47,20 @@ const CustomersTable = () => {
             sort: true
         },
         {
+            dataField: "email",
+            text: "Email    ",
+        },
+        {
             dataField: "address",
             text: "Address",
         },
         {
-            dataField: "zipCode",
-            text: "Postcode",
+            dataField: "mobilphone",
+            text: "Phone",
         },
         {
-            dataField: "stars",
-            text: "Rating",
-        },
-        {
-            dataField: "city",
-            text: "City",
+            dataField: "gender",
+            text: "Género",
         },
         {
             dataField: "action-prestamo",
@@ -138,7 +154,9 @@ const CustomersTable = () => {
                 data={customerList}
                 columns={columns}
                 bordered={false}
-                noDataIndication="Table is Empty"
+                loading={ true }  //only loading is true, react-bootstrap-table will render overlay
+                // overlay={ overlayFactory({ spinner: spinner, background: 'rgba(192,192,192,0.3)' }) }
+                // noDataIndication="Table is Empty"
             />
         </div>
     )
