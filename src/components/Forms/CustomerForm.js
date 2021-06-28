@@ -14,31 +14,10 @@ import {
     CardBody,
 } from "reactstrap";
 
+
 const PersonalInfo = ({ getDataPersonal }) => {
-    // const [datos, setDatos] = useState({
-    //     firstName: '',
-    //     lastName: '',
-    //     typeId: '',
-    //     numId: '',
-    //     nationality: '',
-    //     telephone: '',
-    //     mobilphone: '',
-    //     email: '',
-    //     gender: '',
-    //     maritalStatus: '',
-    //     jobOccupation: '',
-    //     address: '',
-    //     notes: '',
-    // })
 
-    const changeDatos = e => {
-        // setDatos({
-        //     ...datos,
-        //     [e.target.name]: e.target.value
-        // })
-        getDataPersonal(e)
-    }
-
+    const changeDatos = e => getDataPersonal(e)
 
     return (
         <Card>
@@ -218,22 +197,8 @@ const PersonalInfo = ({ getDataPersonal }) => {
 }
 
 const References = ({ getDataReference }) => {
-    // const [datos, setDatos] = useState({
-    //     typeReference: '',
-    //     firstName: '',
-    //     lastName: '',
-    //     phoneFirst: '',
-    //     phoneTwo: '',
-    //     email: ''
-    // })
 
-    const changeDatos = e => {
-        // setDatos({
-        //     ...datos,
-        //     [e.target.name]: e.target.value
-        // })
-        getDataReference(e)
-    }
+    const changeDatos = e => getDataReference(e)
 
     return (
         <Card>
@@ -322,13 +287,6 @@ const References = ({ getDataReference }) => {
 
 const CustomerForm = ({ getInfoCustomer, getInfoReference }) => {
     const [activeTab, setActiveTab] = useState('1')
-
-    // const getDataPersonal = e => {
-    //     console.log(e)
-    // }
-    // const getDataReference = e => {
-    //     console.log(e)
-    // }
 
     return (
         <>

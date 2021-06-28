@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
-import overlayFactory from 'react-bootstrap-table2-overlay';
+// import overlayFactory from 'react-bootstrap-table2-overlay';
 import { Button } from 'reactstrap';
 import ReactTooltip from 'react-tooltip'
 
@@ -13,7 +13,7 @@ import { useCustomerStore, useReferenceStore } from '../store/store'
 
 
 const CustomersTable = () => {
-    const addReference = useReferenceStore(state => state.addReference)
+    // const addReference = useReferenceStore(state => state.addReference)
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const customerList = useCustomerStore(state => state.customerList)
 
@@ -154,9 +154,9 @@ const CustomersTable = () => {
                 data={customerList}
                 columns={columns}
                 bordered={false}
-                loading={ true }  //only loading is true, react-bootstrap-table will render overlay
-                // overlay={ overlayFactory({ spinner: spinner, background: 'rgba(192,192,192,0.3)' }) }
-                // noDataIndication="Table is Empty"
+                loading={true}  //only loading is true, react-bootstrap-table will render overlay
+            // overlay={ overlayFactory({ spinner: spinner, background: 'rgba(192,192,192,0.3)' }) }
+            // noDataIndication="Table is Empty"
             />
         </div>
     )

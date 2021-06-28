@@ -2,93 +2,95 @@ import { createServer, Model, hasMany, belongsTo, Factory } from 'miragejs'
 
 import faker from "faker"
 
+import { customers, references } from './data'
+
 createServer({
     models: {
-        customers: Model,
-        loans: Model,
-        references: Model,
-        payments: Model,
-        employees: Model,
-        expenses: Model,
-        users: Model
+        customer: Model,
+        loan: Model,
+        reference: Model,
+        payment: Model,
+        employee: Model,
+        expense: Model,
+        user: Model
     },
-    factories: {
-        customers: Factory.extend(
-            {
-                firstName() { faker.name.firstName() },
-                lastName() { faker.name.lastName() },
-                typeId: "fisica",
-                numId: "702000432",
-                nationality() { faker.address.country() },
-                email() { faker.internet.email() },
-                address() { faker.address.streetAddress() },
-                maritalStatus(i) {
-                    let genres = ["casado", "soltero", "divorciado"]
-                    return genres[i % genres.length]
-                },
-                gender() { faker.name.gender() },
-                jobOccupation() { faker.name.jobTitle() },
-                telephone() { faker.phone.phoneNumber() },
-                mobilphone() { faker.phone.phoneNumber() },
-                notes() { faker.lorem.text(10) },
-                _created() { faker.date.recent().toLocaleDateString() },
-                _createdby() { faker.internet.email() }
-            }
-        ),
-        loans: Factory.extend(
-            {
-                codigo: "00026",
-                clienteId: 2,
-                montoCredito: 10000,
-                montoIntereses: 3000,
-                montoTotal: 13000,
-                montoCuota: 1000,
-                cuotas: 13,
-                interes: 30,
-                pago: "quincenal",
-                fechaPrestamo: "6/5/2021",
-                estado: "pendiente",
-                _created: "2021-06-24T17:38:11.720Z",
-                _createdby: "josecarrillo8@gmail.com"
-            }
-        ),
-        references: Factory.extend(
-            {
-                clienteId: "702000432",
-                firstName: "Juana",
-                lastName: "Vargas",
-                typeReference: "personal",
-                phoneFirst: "72986272",
-                phoneTwo: "70564438",
-                email: "josecarrillo8@gmail.com",
-                _created: "2021-06-24T17:38:11.720Z",
-                _createdby: "josecarrillo8@gmail.com"
-            }
-        ),
-        // payments: Factory.extend(
-        //     {}
-        // ),
-        // employees: Factory.extend(
-        //     {}
-        // ),
-        // expenses: Factory.extend(
-        //     {}
-        // ),
-        // users: Factory.extend(
-        //     {}
-        // )
-    },
+    // factories: {
+    //     customer: Factory.extend(
+    //         {
+    //             firstName: () => faker.name.firstName(),
+    //             lastName: () => faker.name.lastName(),
+    //             typeId: "fisica",
+    //             numId: "702000432",
+    //             nationality: () => faker.address.country(),
+    //             email: () => faker.internet.email(),
+    //             address: () => faker.address.streetAddress(),
+    //             maritalStatus: i => {
+    //                 let genres = ["casado", "soltero", "divorciado"]
+    //                 return genres[i % genres.length]
+    //             },
+    //             gender: () => faker.name.gender(),
+    //             jobOccupation: () => faker.name.jobTitle(),
+    //             telephone: () => faker.phone.phoneNumber(),
+    //             mobilphone: () => faker.phone.phoneNumber(),
+    //             notes: () => faker.lorem.paragraph(),
+    //             _created: () => faker.date.recent().toLocaleDateString(),
+    //             _createdby: () => faker.internet.email()
+    //         }
+    //     ),
+    //     loan: Factory.extend(
+    //         {
+    //             codigo: "00026",
+    //             clienteId: 2,
+    //             montoCredito: 10000,
+    //             montoIntereses: 3000,
+    //             montoTotal: 13000,
+    //             montoCuota: 1000,
+    //             cuotas: 13,
+    //             interes: 30,
+    //             pago: "quincenal",
+    //             fechaPrestamo: "6/5/2021",
+    //             estado: "pendiente",
+    //             _created: "2021-06-24T17:38:11.720Z",
+    //             _createdby: "josecarrillo8@gmail.com"
+    //         }
+    //     ),
+    //     reference: Factory.extend(
+    //         {
+    //             clienteId: "702000432",
+    //             firstName: "Juana",
+    //             lastName: "Vargas",
+    //             typeReference: "personal",
+    //             phoneFirst: "72986272",
+    //             phoneTwo: "70564438",
+    //             email: "josecarrillo8@gmail.com",
+    //             _created: "2021-06-24T17:38:11.720Z",
+    //             _createdby: "josecarrillo8@gmail.com"
+    //         }
+    //     ),
+    //     payments: Factory.extend(
+    //         {}
+    //     ),
+    //     employees: Factory.extend(
+    //         {}
+    //     ),
+    //     expenses: Factory.extend(
+    //         {}
+    //     ),
+    //     users: Factory.extend(
+    //         {}
+    //     )
+    // },
     seeds(server) {
-        server.createList('customers', 6)
+        customers.forEach(client => server.create("customer", client))
+        references.forEach(referenc => server.create('reference', referenc))
         // server.create('loans', 2)
-        // server.create('references', 2)
         // server.create('payments')
         // server.create('employees')
         // server.create('expenses')
         // server.create('users')
     },
     routes() {
-        this.namespace = 'sipresta/v1/api'
+        this.namespace = 'api'
 
         /* CUSTOMERS API */
         this.post('/customers', (schema, request) => {
@@ -145,50 +147,3 @@ createServer({
         this.del('/references/:id')
     },
 })
-
-
-// {
-//     firstName: "Hazel",
-//     lastName: "Barahona",
-//     typeId: "fisica",
-//     numId: "115540695",
-//     nationality: "Costa Rica",
-//     email: "hangelous29@gmail.com",
-//     address: "calle monge",
-//     maritalStatus: "casado",
-//     gender: "femenino",
-//     jobOccupation: "ama de casa",
-//     telephone: "70574438",
-//     mobilphone: "89434328",
-//     notes: "",
-//     _created: "2021-06-24T17:38:11.720Z",
-//     _createdby: "hangelous29@gmail.com"
-// }
-
-// {
-//     clienteId: "115540695",
-//     firstName: "Juan",
-//     lastName: "Vargas",
-//     typeReference: "personal",
-//     phoneFirst: "70564438",
-//     phoneTwo: "72986272",
-//     email: "hangelous29@gmail.com",
-//     _created: "2021-06-24T17:38:11.720Z",
-//     _createdby: "josecarrillo8@gmail.com"
-// }
-
-// {
-//     codigo: "00025",
-//     clienteId: 1,
-//     montoCredito: 20000,
-//     montoIntereses: 2000,
-//     montoTotal: 22000,
-//     montoCuota: 1692.31,
-//     cuotas: 13,
-//     interes: 10,
-//     pago: "semanal",
-//     fechaPrestamo: "5/29/2021",
-//     estado: "pendiente",
-//     _created: "2021-06-24T17:38:11.720Z",
-//     _createdby: "hangelous29@gmail.com"
-// }

@@ -6,6 +6,34 @@ import CustomerForm from 'components/Forms/CustomerForm';
 import { useCustomerStore, useReferenceStore } from '../../store/store'
 
 
+const initStateCustomer = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    typeId: '',
+    numId: '',
+    nationality: '',
+    telephone: '',
+    mobilphone: '',
+    email: '',
+    gender: '',
+    maritalStatus: '',
+    jobOccupation: '',
+    address: '',
+    notes: '',
+}
+
+const initStateReference = {
+    id: '',
+    clienteId: '',
+    typeReference: '',
+    firstName: '',
+    lastName: '',
+    phoneFirst: '',
+    phoneTwo: '',
+    email: ''
+}
+
 export default function ModalCustomer() {
     const addCustomer = useCustomerStore(state => state.addCustomer)
     const addReference = useReferenceStore(state => state.addReference)
@@ -13,33 +41,9 @@ export default function ModalCustomer() {
     const [modal, setModal] = useState(false)
     // const [backdrop] = useState(false);
 
-    const [customer, setCustomer] = useState({
-        id: '',
-        firstName: '',
-        lastName: '',
-        typeId: '',
-        numId: '',
-        nationality: '',
-        telephone: '',
-        mobilphone: '',
-        email: '',
-        gender: '',
-        maritalStatus: '',
-        jobOccupation: '',
-        address: '',
-        notes: '',
-    })
+    const [customer, setCustomer] = useState(initStateCustomer)
 
-    const [reference, setReference] = useState({
-        id: '',
-        clienteId: '',
-        typeReference: '',
-        firstName: '',
-        lastName: '',
-        phoneFirst: '',
-        phoneTwo: '',
-        email: ''
-    })
+    const [reference, setReference] = useState(initStateReference)
 
     const getInfoCustomer = (e) => {
         setCustomer({
@@ -60,12 +64,12 @@ export default function ModalCustomer() {
     }
 
     const addNewCustomer = () => {
-        customer.id = 5
-        reference.clienteId = customer.id
+        reference.clienteId = customer.numId
         console.log(customer);
-        console.log(reference);
-        // addCustomer(customer)
+        // console.log(reference);
+        addCustomer(customer)
         // addReference(reference)
+        setCustomer({ ...initStateCustomer })
         setModal(!modal)
     }
 

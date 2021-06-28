@@ -1,25 +1,27 @@
 import create from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-import loanEndpoint from '../config/axios'
+// import loanEndpoint from '../config/axios'
+import { db } from '../firebase'
 
 let customerStore = set => ({
     customerList: [],
     getAllCustomers: async () => {
         try {
-            const response = await loanEndpoint.get('/customers')
-            const { data } = response
+            // const response = await loanEndpoint.get('/customers')
+            // const { data: { customers } } = response
+            const data = await db.collection("customers").get()
             console.log(data);
-            set({ customerList: data })
+            // set({ customerList: customers })
         } catch (error) {
             console.error(error);
         }
     },
     addCustomer: async customer => {
         try {
-            console.log(customer);
-            const res = await loanEndpoint.post('/customers', customer)
-            console.log(res);
+            // console.log(customer);
+            // const res = await loanEndpoint.post('/customers', customer)
+            await db.collection("customers").doc().set(customer)
             set(state => ({ customerList: [...state.customerList, customer] }))
         } catch (error) {
             console.error(error);

@@ -25,6 +25,8 @@ import "assets/scss/paper-dashboard.scss?v=1.3.0";
 import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+// import './server'
+import './firebase'
 
 
 import AdminLayout from "layouts/Admin.js";
