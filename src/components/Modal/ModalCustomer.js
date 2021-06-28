@@ -63,10 +63,8 @@ export default function ModalCustomer() {
 
     const addNewCustomer = () => {
         reference.clienteId = customer.numId
-        console.log(customer);
-        // console.log(reference);
         addCustomer(customer)
-        // addReference(reference)
+        addReference(reference)
         setCustomer({ ...initStateCustomer })
         setModal(!modal)
     }

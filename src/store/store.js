@@ -1,17 +1,23 @@
 import create from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-// import loanEndpoint from '../config/axios'
-import { db } from '../firebase'
+import loanEndpoint from '../config/axios'
+// import { db } from '../firebase'
 
 let customerStore = set => ({
     customerList: [],
     getAllCustomers: async () => {
         try {
-            db.collection("customers").onSnapshot(data => {
-                const docs = []
-                data.forEach(doc => docs.push({ ...doc.data(), id: doc.id }))
-                set(state => ({ customerList: docs }))
+            // db.collection("customers").onSnapshot(data => {
+            //     const docs = []
+            //     data.forEach(doc => docs.push({ ...doc.data(), id: doc.id }))
+            //     set(state => ({ customerList: docs }))
+            // })
+            const { data } = await loanEndpoint.get('/customers.json')
+            Object.entries(data).forEach(([key, value]) => {
+                set(state => (
+                    { customerList: [...state.customerList, { ...value, id: key }] }
+                ))
             })
         } catch (error) {
             console.error(error);
@@ -19,7 +25,8 @@ let customerStore = set => ({
     },
     addCustomer: async customer => {
         try {
-            await db.collection("customers").doc().set(customer)
+            // await db.collection("customers").doc().set(customer)
+            await loanEndpoint.post('/customers.json', customer)
             set(state => ({ customerList: [...state.customerList, customer] }))
         } catch (error) {
             console.error(error);
@@ -31,10 +38,16 @@ let referenceStore = set => ({
     referenceList: [],
     getAllReferences: async () => {
         try {
-            db.collection("references").onSnapshot(data => {
-                const docs = []
-                data.forEach(doc => docs.push({ ...doc.data(), id: doc.id }))
-                set(state => ({ referenceList: docs }))
+            // db.collection("references").onSnapshot(data => {
+            //     const docs = []
+            //     data.forEach(doc => docs.push({ ...doc.data(), id: doc.id }))
+            //     set(state => ({ referenceList: docs }))
+            // })
+            const { data } = await loanEndpoint.get('/references.json')
+            Object.entries(data).forEach(([key, value]) => {
+                set(state => (
+                    { referenceList: [...state.referenceList, { ...value, id: key }] }
+                ))
             })
         } catch (error) {
             console.error(error);
@@ -42,7 +55,8 @@ let referenceStore = set => ({
     },
     addReference: async reference => {
         try {
-            await db.collection("references").doc().set(reference)
+            // await db.collection("references").doc().set(reference)
+            await loanEndpoint.post('/references.json', reference)
             set(state => ({ referenceList: [...state.referenceList, reference] }))
         } catch (error) {
             console.error(error);
