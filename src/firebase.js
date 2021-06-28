@@ -15,3 +15,16 @@ const fb = firebase.initializeApp(firebaseConfig);
 
 export const db = fb.firestore();
 
+/*
+{
+  "rules": {
+      "tareas":{  // coleccion q queremos autenticar
+          "$uid":{  // id autenticado
+              ".read": "$uid === auth.id",
+              ".write": "$uid === auth.id"
+          }
+      }
+  }
+}
+*/
+

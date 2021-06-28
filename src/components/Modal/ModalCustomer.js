@@ -7,7 +7,6 @@ import { useCustomerStore, useReferenceStore } from '../../store/store'
 
 
 const initStateCustomer = {
-    id: '',
     firstName: '',
     lastName: '',
     typeId: '',
@@ -24,7 +23,6 @@ const initStateCustomer = {
 }
 
 const initStateReference = {
-    id: '',
     clienteId: '',
     typeReference: '',
     firstName: '',

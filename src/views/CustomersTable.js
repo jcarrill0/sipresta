@@ -15,25 +15,16 @@ import { useCustomerStore, useReferenceStore } from '../store/store'
 const CustomersTable = () => {
     // const addReference = useReferenceStore(state => state.addReference)
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
+    const loadReferences = useReferenceStore(state => state.getAllReferences)
     const customerList = useCustomerStore(state => state.customerList)
 
     // const [loading, setLoading] = useState(true)
     // const [spinner, setSpinner] = useState(true)
 
-    // let prueba =  {
-    //     clienteId: 3,
-    //     firstName: "Juana",
-    //     lastName: "Vargas",
-    //     typeReference: "personal",
-    //     phoneFirst: "72986272",
-    //     phoneTwo: "70564438",
-    //     email: "josecarrillo8@gmail.com"
-    // }
-
     useEffect(() => {
         loadCustomers()
-        // addReference(prueba)
-    }, [loadCustomers])
+        loadReferences()
+    }, [loadCustomers, loadReferences])
 
     const columns = [
         {
@@ -155,8 +146,8 @@ const CustomersTable = () => {
                 columns={columns}
                 bordered={false}
                 loading={true}  //only loading is true, react-bootstrap-table will render overlay
-            // overlay={ overlayFactory({ spinner: spinner, background: 'rgba(192,192,192,0.3)' }) }
-            // noDataIndication="Table is Empty"
+                // overlay={ overlayFactory({ spinner: spinner, background: 'rgba(192,192,192,0.3)' }) }
+                noDataIndication="Table is Empty"
             />
         </div>
     )
