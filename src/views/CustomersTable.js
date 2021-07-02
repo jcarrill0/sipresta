@@ -6,64 +6,94 @@ import ReactTooltip from 'react-tooltip'
 
 // import CustomerForm from 'components/Forms/CustomerForm';
 // import ModalBtn from 'components/Modal/ModalBtn';
-import ModalCustomer from 'components/Modal/ModalCustomer';
+import { ModalCustomer } from 'components/Modal/ModalCustomer';
+import { ModalLoan } from 'components/Modal/ModalLoan';
+import { useCustomerStore } from '../store/store'
 
-import { useCustomerStore, useReferenceStore } from '../store/store'
-
-
+const styles = {
+    headerStyle: { width: '7vw' },
+    columnStyle: {
+        wordWrap: 'break-word',
+        fontSize: '.8rem '
+    }
+}
 
 const CustomersTable = () => {
     // const addReference = useReferenceStore(state => state.addReference)
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
-    const loadReferences = useReferenceStore(state => state.getAllReferences)
+    // const loadReferences = useReferenceStore(state => state.getAllReferences)
     const customerList = useCustomerStore(state => state.customerList)
 
-    // const [loading, setLoading] = useState(true)
-    // const [spinner, setSpinner] = useState(true)
+    const [modal, setModal] = useState(false)
+    const toggle = () => setModal(!modal)
 
     useEffect(() => {
         loadCustomers()
-        loadReferences()
-    }, [loadCustomers, loadReferences])
+    }, [loadCustomers])
 
     const columns = [
         {
             dataField: "numId",
             text: "Id",
-            sort: true
+            sort: true,
+            headerAlign: 'center',
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle
+
         },
         {
             dataField: "firstName",
             text: "Name",
-            sort: true
+            sort: true,
+            headerAlign: 'center',
+            style: styles.columnStyle
+            // const customer = customers.find(item => item.id === cell)
+
+            // return (
+            //     <span>{`${customer.firstName} ${customer.lastName}`}</span>
+            // );
         },
         {
             dataField: "email",
-            text: "Email    ",
+            text: "Email",
+            headerAlign: 'center',
+            style: styles.columnStyle
         },
         {
-            dataField: "address",
+            dataField: "addresses",
             text: "Address",
+            headerAlign: 'center',
+            style: styles.columnStyle,
+            formatter: cell => <span>{cell[0].address}</span>
         },
         {
-            dataField: "mobilphone",
+            dataField: "phones",
             text: "Phone",
+            headerAlign: 'center',
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle,
+            formatter: cell => <span>{cell[0].number}</span>
         },
         {
             dataField: "gender",
             text: "Género",
+            headerAlign: 'center',
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle
         },
         {
             dataField: "action-prestamo",
             isDummyField: true,
             text: "Crear Préstamo",
-            formatter: (cell, row) => {
+            align: 'center',
+            headerAlign: 'center',
+            headerStyle: styles.headerStyle,
+            formatter: row => {
                 return (
                     <>
                         < Button
-                            className="ml-4"
                             color="warning"
-                            onClick={() => alert(cell)}
+                            onClick={toggle}
                             size='sm'
                             data-tip="Crear Préstamo"
                         >
@@ -78,8 +108,10 @@ const CustomersTable = () => {
         {
             dataField: "action",
             isDummyField: true,
+            align: 'center',
+            headerAlign: 'center',
             text: "Acciones",
-            formatter: (cell, row) => {
+            formatter: row => {
                 return (
                     <>
                         <Button
@@ -144,10 +176,14 @@ const CustomersTable = () => {
                 keyField="id"
                 data={customerList}
                 columns={columns}
-                bordered={false}
-                loading={true}  //only loading is true, react-bootstrap-table will render overlay
+                // bordered={false}
+                // loading={true} 
                 // overlay={ overlayFactory({ spinner: spinner, background: 'rgba(192,192,192,0.3)' }) }
-                noDataIndication="Table is Empty"
+                noDataIndication="No hay clientes"
+            />
+            <ModalLoan
+                modal={modal}
+                toggle={toggle}
             />
         </div>
     )

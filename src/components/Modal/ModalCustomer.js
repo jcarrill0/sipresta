@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import CustomerForm from 'components/Forms/CustomerForm';
 
-import { useCustomerStore, useReferenceStore } from '../../store/store'
+import { useCustomerStore } from '../../store/store'
 
 
 const initStateCustomer = {
@@ -40,31 +40,34 @@ const initStateReference = {
     email: ''
 }
 
-export default function ModalCustomer() {
+export const ModalCustomer = () => {
     const addCustomer = useCustomerStore(state => state.addCustomer)
     // const addReference = useReferenceStore(state => state.addReference)
 
     const [modal, setModal] = useState(false)
+    const codeArea = '+506';
+    const PHONES_CUSTOMERS = {
+        phone1: { code: codeArea, number: '' },
+        phone2: { code: codeArea, number: '' }
+    }
+    const PHONES_REFERENCES = {
+        phone1: { code: codeArea, number: '' },
+        phone2: { code: codeArea, number: '' }
+    }
 
     const [customer, setCustomer] = useState(initStateCustomer)
     const [reference, setReference] = useState(initStateReference)
-    const [phone1Customer, setPhone1Customer] = useState({ code: '+506' })
-    const [phone2Customer, setPhone2Customer] = useState({ code: '+506' })
-    const [phone1Ref, setPhone1Ref] = useState({ code: '+506' })
-    const [phone2Ref, setPhone2Ref] = useState({ code: '+506' })
+    const [phoneCustomer, setPhoneCustomer] = useState(PHONES_CUSTOMERS)
+    const [phoneRef, setPhoneRef] = useState(PHONES_REFERENCES)
     const [addresses, setAddresses] = useState({})
 
-    const getInfoCustomer = (e) => {
-        if (e.target.name === 'phone1') {
-            setPhone1Customer({
-                ...phone1Customer,
-                number: e.target.value
-            })
+    const toggle = () => setModal(!modal)
 
-        } else if (e.target.name === 'phone2') {
-            setPhone2Customer({
-                ...phone2Customer,
-                number: e.target.value
+    const getInfoCustomer = (e) => {
+        if (e.target.name === 'phone1' || e.target.name === 'phone2') {
+            setPhoneCustomer({
+                ...phoneCustomer,
+                [e.target.name]: { ...phoneCustomer[e.target.name], number: e.target.value }
             })
         } else if (e.target.name === 'address') {
             setAddresses({
@@ -81,15 +84,10 @@ export default function ModalCustomer() {
     }
 
     const getInfoReference = (e) => {
-        if (e.target.name === 'phone1') {
-            setPhone1Ref({
-                ...phone1Ref,
-                number: e.target.value
-            })
-        } else if (e.target.name === 'phone2') {
-            setPhone2Ref({
-                ...phone2Ref,
-                number: e.target.value
+        if (e.target.name === 'phone1' || e.target.name === 'phone2') {
+            setPhoneRef({
+                ...phoneRef,
+                [e.target.name]: { ...phoneRef[e.target.name], number: e.target.value }
             })
         } else {
             setReference({
@@ -99,23 +97,19 @@ export default function ModalCustomer() {
         }
     }
 
-    const toggle = () => {
-        setModal(!modal)
-    }
-
     const addNewCustomer = () => {
         // reference.clienteId = customer.numId
-        reference.phones.push(phone1Ref)
-        reference.phones.push(phone2Ref)
         customer.addresses.push(addresses)
-        customer.phones.push(phone1Customer)
-        customer.phones.push(phone2Customer)
+        Object.entries(phoneRef).forEach(([key, value]) => {
+            reference.phones.push(value)
+        })
+        Object.entries(phoneCustomer).forEach(([key, value]) => {
+            customer.phones.push(value)
+        })
         customer.references.push(reference)
-        console.log(customer);
-        // addCustomer(customer)
-        // addReference(reference)
-        // setCustomer({ ...initStateCustomer })
-        setModal(!modal)
+        addCustomer(customer)
+        setCustomer({ ...initStateCustomer })
+        toggle()
     }
 
     return (

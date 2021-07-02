@@ -9,6 +9,7 @@ import { customers, loans } from '../db.json'
 // import { usePopperTooltip } from 'react-popper-tooltip';
 import { ModalCalc } from 'components/Modal/ModalCalc';
 import CalcForm from 'components/Forms/CalcForm';
+import { ModalLoan } from 'components/Modal/ModalLoan';
 
 
 
@@ -143,10 +144,11 @@ const LoansTable = () => {
     return (
         <div className="content">
             <CaptionElement />
-            <ModalBtn
+            {/* <ModalBtn
                 title="Registrar nuevo préstamo"
                 Component={<LoanForm />}
-            />
+            /> */}
+            <ModalLoan />
             <ModalCalc
                 title="Calculadora de préstamo"
                 Component={<CalcForm />}

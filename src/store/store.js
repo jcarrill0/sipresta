@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware'
 import loanEndpoint from '../config/axios'
 // import { db } from '../firebase'
 
-let customerStore = set => ({
+let customerStore = (set, get) => ({
     customerList: [],
     getAllCustomers: async () => {
         try {
@@ -14,11 +14,13 @@ let customerStore = set => ({
             //     set(state => ({ customerList: docs }))
             // })
             const { data } = await loanEndpoint.get('/customers.json')
-            Object.entries(data).forEach(([key, value]) => {
-                set(state => (
-                    { customerList: [...state.customerList, { ...value, id: key }] }
-                ))
-            })
+            if (data && get().customerList.length < 1) {
+                Object.entries(data).forEach(([key, value]) => {
+                    set(state => (
+                        { customerList: [...state.customerList, { ...value, id: key }] }
+                    ))
+                })
+            }
         } catch (error) {
             console.error(error);
         }
@@ -44,11 +46,13 @@ let referenceStore = set => ({
             //     set(state => ({ referenceList: docs }))
             // })
             const { data } = await loanEndpoint.get('/references.json')
-            Object.entries(data).forEach(([key, value]) => {
-                set(state => (
-                    { referenceList: [...state.referenceList, { ...value, id: key }] }
-                ))
-            })
+            if (data) {
+                Object.entries(data).forEach(([key, value]) => {
+                    set(state => (
+                        { referenceList: [...state.referenceList, { ...value, id: key }] }
+                    ))
+                })
+            }
         } catch (error) {
             console.error(error);
         }
