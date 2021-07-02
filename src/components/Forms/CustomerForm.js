@@ -94,7 +94,7 @@ const PersonalInfo = ({ getDataPersonal }) => {
                                 <Input
                                     placeholder="Teléfono"
                                     type="text"
-                                    name="telephone"
+                                    name="phone1"
                                     // value={datos.telephone}
                                     onChange={e => changeDatos(e)}
                                 />
@@ -106,7 +106,7 @@ const PersonalInfo = ({ getDataPersonal }) => {
                                 <Input
                                     placeholder="Teléfono Móvil"
                                     type="text"
-                                    name="mobilphone"
+                                    name="phone2"
                                     // value={datos.mobilphone}
                                     onChange={e => changeDatos(e)}
                                 />
@@ -248,7 +248,7 @@ const References = ({ getDataReference }) => {
                                 <Input
                                     placeholder="Teléfono 1"
                                     type="text"
-                                    name="phoneFirst"
+                                    name="phone1"
                                     // value={datos.phoneFirst}
                                     onChange={e => changeDatos(e)}
                                 />
@@ -260,7 +260,7 @@ const References = ({ getDataReference }) => {
                                 <Input
                                     placeholder="Teléfono 2"
                                     type="text"
-                                    name="phoneTwo"
+                                    name="phone2"
                                     // value={datos.phoneTwo}
                                     onChange={e => changeDatos(e)}
                                 />
