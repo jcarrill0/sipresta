@@ -4,9 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import LoanForm from 'components/Forms/LoanForm';
 
 
-export const ModalLoan = (props) => {
-    const { modal, toggle } = props
-
+export const ModalLoan = ({ modal, toggle, clientId }) => {
 
     const addNewLoan = () => {
         alert('Nuevo Prestamo añadido')

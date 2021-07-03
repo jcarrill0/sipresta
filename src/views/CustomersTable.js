@@ -24,8 +24,15 @@ const CustomersTable = () => {
     // const loadReferences = useReferenceStore(state => state.getAllReferences)
     const customerList = useCustomerStore(state => state.customerList)
 
+    const [clientSelected, setClientSelected] = useState("")
     const [modal, setModal] = useState(false)
+
     const toggle = () => setModal(!modal)
+
+    const chooseClient = id => {
+        setClientSelected(id)
+        toggle()
+    }
 
     useEffect(() => {
         loadCustomers()
@@ -88,12 +95,12 @@ const CustomersTable = () => {
             align: 'center',
             headerAlign: 'center',
             headerStyle: styles.headerStyle,
-            formatter: row => {
+            formatter: (cell, row) => {
                 return (
                     <>
                         < Button
                             color="warning"
-                            onClick={toggle}
+                            onClick={() => chooseClient(row.id)}
                             size='sm'
                             data-tip="Crear Préstamo"
                         >
@@ -111,7 +118,7 @@ const CustomersTable = () => {
             align: 'center',
             headerAlign: 'center',
             text: "Acciones",
-            formatter: row => {
+            formatter: (cell, row) => {
                 return (
                     <>
                         <Button
@@ -184,6 +191,7 @@ const CustomersTable = () => {
             <ModalLoan
                 modal={modal}
                 toggle={toggle}
+                clientId={clientSelected}
             />
         </div>
     )
