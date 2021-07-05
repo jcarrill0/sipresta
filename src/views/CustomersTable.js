@@ -24,13 +24,13 @@ const CustomersTable = () => {
     // const loadReferences = useReferenceStore(state => state.getAllReferences)
     const customerList = useCustomerStore(state => state.customerList)
 
-    const [clientSelected, setClientSelected] = useState("")
+    const [clientSelected, setClientSelected] = useState({})
     const [modal, setModal] = useState(false)
 
     const toggle = () => setModal(!modal)
 
     const chooseClient = id => {
-        setClientSelected(id)
+        setClientSelected(customerList.filter(client => client.id === id))
         toggle()
     }
 
@@ -183,15 +183,13 @@ const CustomersTable = () => {
                 keyField="id"
                 data={customerList}
                 columns={columns}
-                // bordered={false}
-                // loading={true} 
-                // overlay={ overlayFactory({ spinner: spinner, background: 'rgba(192,192,192,0.3)' }) }
+                bordered={false}
                 noDataIndication="No hay clientes"
             />
             <ModalLoan
                 modal={modal}
                 toggle={toggle}
-                clientId={clientSelected}
+                client={clientSelected}
             />
         </div>
     )

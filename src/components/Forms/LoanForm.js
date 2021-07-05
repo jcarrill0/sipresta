@@ -14,7 +14,9 @@ import {
     CardBody,
 } from "reactstrap";
 
+
 const LoanForm = () => {
+
     return (
         <Card>
             <CardBody>
