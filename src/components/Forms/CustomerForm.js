@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+// import PropTypes from 'prop-types'
 import {
     TabContent,
     TabPane,
@@ -15,9 +16,9 @@ import {
 } from "reactstrap";
 
 
-const PersonalInfo = ({ getDataPersonal }) => {
+const PersonalInfo = ({ getInfoCustomer }) => {
 
-    const changeDatos = e => getDataPersonal(e)
+    const changeDatos = e => getInfoCustomer(e)
 
     return (
         <Card>
@@ -53,8 +54,8 @@ const PersonalInfo = ({ getDataPersonal }) => {
                         <Col md="4">
                             <FormGroup>
                                 <label>Tipo Identidad</label>
-                                <Input type="select" name="typeId" onChange={e => changeDatos(e)}>
-                                    <option selected disabled>Tipo Identidad</option>
+                                <Input type="select" name="typeId" defaultValue="" onChange={e => changeDatos(e)}>
+                                    <option value="" disabled>Tipo Identidad</option>
                                     <option value='fisica' >Persona Física</option>
                                     <option value='juridica' >Persona Jurídica</option>
                                     <option value='passaporte' >Pasaporte</option>
@@ -129,8 +130,8 @@ const PersonalInfo = ({ getDataPersonal }) => {
                         <Col md="3">
                             <FormGroup>
                                 <label>Sexo</label>
-                                <Input type="select" name="gender" onChange={e => changeDatos(e)}>
-                                    <option selected disabled>Sexo</option>
+                                <Input type="select" name="gender" defaultValue="" onChange={e => changeDatos(e)}>
+                                    <option value="" disabled>Sexo</option>
                                     <option value='masculino'>Masculino</option>
                                     <option value='femenino'>Femenino</option>
                                 </Input>
@@ -139,8 +140,8 @@ const PersonalInfo = ({ getDataPersonal }) => {
                         <Col md="4">
                             <FormGroup>
                                 <label>Estado Civil</label>
-                                <Input type="select" name="maritalStatus" onChange={e => changeDatos(e)}>
-                                    <option selected disabled>Estado Civil</option>
+                                <Input type="select" name="maritalStatus" defaultValue="" onChange={e => changeDatos(e)}>
+                                    <option value="" disabled>Estado Civil</option>
                                     <option value='soltero'>Soltero</option>
                                     <option value='casado'>Casado</option>
                                     <option value='divorciado'>Divorciado</option>
@@ -196,9 +197,9 @@ const PersonalInfo = ({ getDataPersonal }) => {
     )
 }
 
-const References = ({ getDataReference }) => {
+const References = ({ getInfoReference }) => {
 
-    const changeDatos = e => getDataReference(e)
+    const changeDatos = e => getInfoReference(e)
 
     return (
         <Card>
@@ -208,8 +209,8 @@ const References = ({ getDataReference }) => {
                         <Col md="3">
                             <FormGroup>
                                 <label>Tipo de referencia</label>
-                                <Input type="select" name="typeReference" onChange={e => changeDatos(e)}>
-                                    <option selected disabled>-- Seleccione --</option>
+                                <Input type="select" name="typeReference" defaultValue="" onChange={e => changeDatos(e)}>
+                                    <option value="" disabled>-- Seleccione --</option>
                                     <option value="personal">Personal</option>
                                     <option value="laboral">Laboral</option>
                                     <option value="familiar">Familiar</option>
@@ -310,14 +311,20 @@ const CustomerForm = ({ getInfoCustomer, getInfoReference }) => {
             </Nav>
             <TabContent activeTab={activeTab}>
                 <TabPane tabId="1">
-                    <PersonalInfo getDataPersonal={getInfoCustomer} />
+                    <PersonalInfo {...{ getInfoCustomer }} />
                 </TabPane>
                 <TabPane tabId="2">
-                    <References getDataReference={getInfoReference} />
+                    <References {...{ getInfoReference }} />
                 </TabPane>
             </TabContent>
         </>
     )
 }
 
+// CustomerForm.propTypes = {
+//     getDataPersonal: PropTypes.func,
+//     getDataReference: PropTypes.func
+// }
+
 export default CustomerForm
+

@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import BootstrapTable from 'react-bootstrap-table-next';
-// import overlayFactory from 'react-bootstrap-table2-overlay';
-import { Button } from 'reactstrap';
+import BootstrapTable from 'react-bootstrap-table-next'
+// import overlayFactory from 'react-bootstrap-table2-overlay'
+import { Button } from 'reactstrap'
 import ReactTooltip from 'react-tooltip'
 
-// import CustomerForm from 'components/Forms/CustomerForm';
-// import ModalBtn from 'components/Modal/ModalBtn';
-import { ModalCustomer } from 'components/Modal/ModalCustomer';
+import { ModalCustomer } from 'components/Modal/ModalCustomer'
 import { ModalLoan } from 'components/Modal/ModalLoan';
 import { useCustomerStore } from '../store/store'
+import { useModal } from 'hooks/useModal'
+
 
 const styles = {
     headerStyle: { width: '7vw' },
     columnStyle: {
         wordWrap: 'break-word',
         fontSize: '.8rem '
+    },
+    captionStyle: {
+        borderRadius: '0.25rem',
+        textAlign: 'center',
+        color: '#FF6426',
+        border: '1px solid #EF8157',
+        padding: '0.4rem'
     }
 }
 
 const CustomersTable = () => {
-    // const addReference = useReferenceStore(state => state.addReference)
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
-    // const loadReferences = useReferenceStore(state => state.getAllReferences)
     const customerList = useCustomerStore(state => state.customerList)
 
     const [clientSelected, setClientSelected] = useState({})
-    const [modal, setModal] = useState(false)
 
-    const toggle = () => setModal(!modal)
+    const { modal, toggle } = useModal()
 
-    const chooseClient = id => {
-        setClientSelected(customerList.filter(client => client.id === id))
+    const chooseClient = client => {
+        setClientSelected(client)
         toggle()
     }
 
@@ -100,7 +104,7 @@ const CustomersTable = () => {
                     <>
                         < Button
                             color="warning"
-                            onClick={() => chooseClient(row.id)}
+                            onClick={() => chooseClient(row)}
                             size='sm'
                             data-tip="Crear Préstamo"
                         >
@@ -168,7 +172,7 @@ const CustomersTable = () => {
     //     }, 3000);
     // },[users])
 
-    const CaptionElement = () => <h3 style={{ borderRadius: '0.25rem', textAlign: 'center', color: '#FF6426', border: '1px solid #EF8157', padding: '0.4rem' }}>Lista de Clientes</h3>;
+    const CaptionElement = () => <h3 style={styles.captionStyle}>Lista de Clientes</h3>;
 
     return (
         <div className="content">

@@ -1,10 +1,5 @@
 import React from 'react'
 import {
-    // TabContent,
-    // TabPane,
-    // Nav,
-    // NavItem,
-    // NavLink,
     FormGroup,
     Form,
     Input,
@@ -14,8 +9,13 @@ import {
     CardBody,
 } from "reactstrap";
 
+// import { useCustomerStore } from '../../store/store'
 
-const LoanForm = () => {
+
+const LoanForm = ({ client, getInfoLoan, loan }) => {
+    // const customerList = useCustomerStore(state => state.customerList)
+
+    const changeDatos = e => getInfoLoan(e)
 
     return (
         <Card>
@@ -23,12 +23,16 @@ const LoanForm = () => {
                 <Form>
                     <Row form>
                         <Col md="6">
+                            {/* Nota: crear un select con todo los nombres de los clientes */}
                             <FormGroup>
-                                <label>Cliente</label>
+                                <label>Nombre cliente</label>
                                 <Input
                                     placeholder="Cliente"
                                     type="text"
                                     name="cliente"
+                                    disabled
+                                    value={client.firstName || ""}
+                                    onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>
                         </Col>
@@ -38,19 +42,27 @@ const LoanForm = () => {
                                 <Input
                                     placeholder="Monto"
                                     type="number"
-                                    name="monto"
+                                    name="montoCredito"
+                                    value={loan.montoCredito}
+                                    onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>
                         </Col>
                         <Col md="3">
                             <FormGroup>
                                 <label>Forma de Pago</label>
-                                <Input type="select" name="select">
-                                    <option selected disabled>Forma de Pago</option>
-                                    <option>Mesual</option>
-                                    <option>Quincenal</option>
-                                    <option>Semanal</option>
-                                    <option>Diario</option>
+                                <Input
+                                    defaultValue=""
+                                    name="modalidadPago"
+                                    type="select"
+                                    onChange={e => changeDatos(e)}
+                                    value={loan.modalidadPago}
+                                >
+                                    <option value="" disabled>Forma de Pago</option>
+                                    <option value="mensual">Mesual</option>
+                                    <option value="quincenal">Quincenal</option>
+                                    <option value="semanal">Semanal</option>
+                                    <option value="diario">Diario</option>
                                 </Input>
                             </FormGroup>
                         </Col>
@@ -63,6 +75,8 @@ const LoanForm = () => {
                                     placeholder="% de interés"
                                     type="number"
                                     name="interes"
+                                    value={loan.interes}
+                                    onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>
                         </Col>
@@ -73,6 +87,8 @@ const LoanForm = () => {
                                     placeholder="Cuotas"
                                     type="number"
                                     name="cuotas"
+                                    value={loan.cuotas}
+                                    onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>
                         </Col>
@@ -82,7 +98,9 @@ const LoanForm = () => {
                                 <Input
                                     placeholder=""
                                     type="date"
-                                    name="startDate"
+                                    name="fechaPrestamo"
+                                    value={loan.fechaPrestamo}
+                                    onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>
                         </Col>
@@ -92,7 +110,9 @@ const LoanForm = () => {
                                 <Input
                                     placeholder=""
                                     type="date"
-                                    name="firstPaymentDate"
+                                    name="fechaPago"
+                                    value={loan.fechaPago}
+                                    onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>
                         </Col>
@@ -104,7 +124,9 @@ const LoanForm = () => {
                                 <Input
                                     placeholder="Observaciones"
                                     type="textarea"
-                                    name="comment"
+                                    name="nota"
+                                    value={loan.nota}
+                                    onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>
                         </Col>

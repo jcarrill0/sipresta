@@ -5,11 +5,22 @@ import CustomerForm from 'components/Forms/CustomerForm';
 
 import { useCustomerStore } from '../../store/store'
 
+import { getCurrentDate } from '../../helpers/helpers'
+
+// Interes anual 25% a 60 meses 
+// Saldo de la visa: 1.125.381
+// 36050 con el seguro pago de julio 46650 solamente
+// abono extraordinario
+// 21 julio
+// pagar hoy 8 usd = 5500
+// 2295-9075
+
+// Interes anual 25% a 60 meses 
+// saldo de la mastercard: 620200
+// 18300 primer pago julio 23300
+// pagar hoy 20mil
 
 const initStateCustomer = {
-    // telephone: '',
-    // mobilphone: '',
-    // address: '',
     firstName: '',
     lastName: '',
     typeId: '',
@@ -22,7 +33,6 @@ const initStateCustomer = {
     notes: '',
     phones: [],
     references: [],
-    loans: [],
     addresses: [],
     create_at: '',
     update_at: '',
@@ -30,9 +40,6 @@ const initStateCustomer = {
 }
 
 const initStateReference = {
-    // clienteId: '',
-    // phoneFirst: '',
-    // phoneTwo: '',
     typeReference: '',
     firstName: '',
     lastName: '',
@@ -42,7 +49,6 @@ const initStateReference = {
 
 export const ModalCustomer = () => {
     const addCustomer = useCustomerStore(state => state.addCustomer)
-    // const addReference = useReferenceStore(state => state.addReference)
 
     const [modal, setModal] = useState(false)
     const codeArea = '+506';
@@ -63,7 +69,7 @@ export const ModalCustomer = () => {
 
     const toggle = () => setModal(!modal)
 
-    const getInfoCustomer = (e) => {
+    const getInfoCustomer = e => {
         if (e.target.name === 'phone1' || e.target.name === 'phone2') {
             setPhoneCustomer({
                 ...phoneCustomer,
@@ -83,7 +89,7 @@ export const ModalCustomer = () => {
 
     }
 
-    const getInfoReference = (e) => {
+    const getInfoReference = e => {
         if (e.target.name === 'phone1' || e.target.name === 'phone2') {
             setPhoneRef({
                 ...phoneRef,
@@ -98,18 +104,32 @@ export const ModalCustomer = () => {
     }
 
     const addNewCustomer = () => {
-        // reference.clienteId = customer.numId
-        customer.addresses.push(addresses)
+        addDataExtra()
+        addCustomer(customer)
+        cleanStates()
+        toggle()
+    }
+
+    // Completamos phone, references, addresses and dates
+    const addDataExtra = () => {
         Object.entries(phoneRef).forEach(([key, value]) => {
             reference.phones.push(value)
         })
         Object.entries(phoneCustomer).forEach(([key, value]) => {
             customer.phones.push(value)
         })
+        customer.addresses.push(addresses)
         customer.references.push(reference)
-        addCustomer(customer)
+        customer.create_at = getCurrentDate()
+        customer.update_at = getCurrentDate()
+    }
+
+    const cleanStates = () => {
         setCustomer({ ...initStateCustomer })
-        toggle()
+        setAddresses({})
+        setPhoneCustomer({ ...PHONES_CUSTOMERS })
+        setPhoneRef({ ...PHONES_REFERENCES })
+        setReference({ initStateReference })
     }
 
     return (
@@ -127,12 +147,11 @@ export const ModalCustomer = () => {
                 </ModalHeader>
                 <ModalBody>
                     <CustomerForm
-                        getInfoCustomer={getInfoCustomer}
-                        getInfoReference={getInfoReference}
+                        {...{ getInfoCustomer, getInfoReference }}
                     />
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" type="button" onClick={toggle}>Cancel</Button>{' '}
+                    <Button className="mr-3" color="danger" type="button" onClick={toggle}>Cancel</Button>
                     <Button color="success" type="button" onClick={addNewCustomer}>Agregar Nuevo</Button>
                 </ModalFooter>
             </Modal>

@@ -148,7 +148,11 @@ const LoansTable = () => {
                 title="Registrar nuevo préstamo"
                 Component={<LoanForm />}
             /> */}
-            <ModalLoan />
+            <ModalLoan
+            // modal={modal}
+            // toggle={toggle}
+            // client={clientSelected}
+            />
             <ModalCalc
                 title="Calculadora de préstamo"
                 Component={<CalcForm />}

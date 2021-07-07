@@ -2,16 +2,52 @@ import React, { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import LoanForm from 'components/Forms/LoanForm';
+import { useLoanStore } from '../../store/store'
+import { getCurrentDate } from '../../helpers/helpers'
 
+
+const initStateLoan = {
+    clienteId: "",
+    montoCredito: null,
+    cuotas: null,
+    interes: null,
+    modalidadPago: "",
+    fechaPrestamo: "",
+    fechaPago: "",
+    estado: "pendiente",
+    nota: "",
+    create_at: "",
+    update_at: "",
+    create_by: ""
+}
 
 export const ModalLoan = ({ modal, toggle, client }) => {
+    const addLoan = useLoanStore(state => state.addLoan)
 
-    console.log(client);
+    const [loan, setLoan] = useState(initStateLoan)
+
+
+    const getInfoLoan = e => {
+        const { name, value } = e.target
+
+        if (name === "montoCredito" || name === "cuotas" || name === "interes") {
+            setLoan({ ...loan, [name]: parseFloat(value) })
+        } else {
+            setLoan({ ...loan, [name]: value })
+        }
+
+    }
 
     const addNewLoan = () => {
-        alert('Nuevo Prestamo añadido')
+        loan.clienteId = client.id
+        loan.create_at = getCurrentDate()
+        loan.update_at = getCurrentDate()
+        console.log(loan);
+        // addLoan(loan)
+        // setLoan({ ...initStateLoan })
         toggle()
     }
+
 
     return (
         <Modal isOpen={modal} toggle={toggle} backdrop={false} size="lg">
@@ -19,16 +55,10 @@ export const ModalLoan = ({ modal, toggle, client }) => {
                 Registrar nuevo Préstamo
             </ModalHeader>
             <ModalBody>
-                {/* <CustomerForm
-                    getInfoCustomer={getInfoCustomer}
-                    getInfoReference={getInfoReference}
-                /> */}
-                <LoanForm
-                // clientId={}
-                />
+                <LoanForm {...{ client, getInfoLoan, loan }} />
             </ModalBody>
             <ModalFooter>
-                <Button color="danger" type="button" onClick={toggle}>Cancel</Button>{' '}
+                <Button className="mr-3" color="danger" type="button" onClick={toggle}>Cancel</Button>
                 <Button color="success" type="button" onClick={addNewLoan}>Agregar Nuevo</Button>
             </ModalFooter>
         </Modal>
