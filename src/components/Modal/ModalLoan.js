@@ -42,9 +42,8 @@ export const ModalLoan = ({ modal, toggle, client }) => {
         loan.clienteId = client.id
         loan.create_at = getCurrentDate()
         loan.update_at = getCurrentDate()
-        console.log(loan);
-        // addLoan(loan)
-        // setLoan({ ...initStateLoan })
+        addLoan(loan)
+        setLoan({ ...initStateLoan })
         toggle()
     }
 
