@@ -34,9 +34,9 @@ const initStateCustomer = {
     phones: [],
     references: [],
     addresses: [],
-    create_at: '',
-    update_at: '',
-    create_by: ''
+    _createAt: '',
+    _updateAt: '',
+    _createAy: ''
 }
 
 const initStateReference = {

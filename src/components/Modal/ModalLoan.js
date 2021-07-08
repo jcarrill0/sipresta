@@ -16,9 +16,10 @@ const initStateLoan = {
     fechaPago: "",
     estado: "pendiente",
     nota: "",
-    create_at: "",
-    update_at: "",
-    create_by: ""
+    amortizacion: [],
+    _createAt: "",
+    _updateAt: "",
+    _createBy: ""
 }
 
 export const ModalLoan = ({ modal, toggle, client }) => {

@@ -78,3 +78,16 @@ export let references = [
         _createdby: "josecarrillo8@gmail.com"
     }
 ]
+
+export let payments = [
+    {
+        // _id: "0001",
+        // loanId: 1,
+        numCuota: 1,
+        fechaPago: "5/29/2021",
+        montoCuota: 1692.31,
+        estado: "pendiente",    // pagado o pendiente
+        formaPago: "efectivo"   // efectivo, cheque, deposito/transferencia/sinpeMovil
+    }
+]
+
