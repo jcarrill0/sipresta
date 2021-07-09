@@ -151,7 +151,7 @@ export const ModalCustomer = () => {
                     />
                 </ModalBody>
                 <ModalFooter>
-                    <Button className="mr-3" color="danger" type="button" onClick={toggle}>Cancel</Button>
+                    <Button className="mr-2" color="danger" type="button" onClick={toggle}>Cancel</Button>
                     <Button color="success" type="button" onClick={addNewCustomer}>Agregar Nuevo</Button>
                 </ModalFooter>
             </Modal>

@@ -30,8 +30,8 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                     placeholder="Cliente"
                                     type="text"
                                     name="cliente"
-                                    disabled
-                                    value={client.firstName || ""}
+                                    // disabled
+                                    value={client !== undefined ? client.firstName : null}
                                     onChange={e => changeDatos(e)}
                                 />
                             </FormGroup>

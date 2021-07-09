@@ -1,36 +1,36 @@
 import React, { useState } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
-
-import LoanForm from 'components/Forms/LoanForm';
-import ModalBtn from 'components/Modal/ModalBtn';
+// import ReactTooltip from 'react-tooltip'
 
 import { customers, loans } from '../db.json'
-// import { usePopperTooltip } from 'react-popper-tooltip';
-import { ModalCalc } from 'components/Modal/ModalCalc';
+
 import CalcForm from 'components/Forms/CalcForm';
+import { ModalCalc } from 'components/Modal/ModalCalc';
 import { ModalLoan } from 'components/Modal/ModalLoan';
+import { useModal } from 'hooks/useModal'
 
-
-
-const styles = {
-    buttons: { fontSize: "14px" }
-}
+import { styles } from './styles/styles'
 
 
 const LoansTable = () => {
     const [listLoan] = useState(loans)
 
+    const { modal, toggle } = useModal()
+
     const columns = [
         {
             dataField: "codigo",
             text: "N° Prestamo",
-            sort: true
+            sort: true,
+            // headerStyle: styles.headerStyle,
+            style: styles.columnStyle
         },
         {
             dataField: "clienteId",
             text: "Cliente",
             sort: true,
+            style: styles.columnStyle,
             formatter: cell => {
                 const customer = customers.find(item => item.id === cell)
 
@@ -42,18 +42,27 @@ const LoansTable = () => {
         {
             dataField: "fechaPrestamo",
             text: "Fecha Préstamo",
+            headerAlign: 'center',
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle
         },
         {
             dataField: "montoCredito",
             text: "Monto Crédito",
+            headerAlign: 'center',
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle
         },
-        {
-            dataField: "montoTotal",
-            text: "Monto Total",
-        },
+        // {
+        //     dataField: "montoTotal",
+        //     text: "Monto Total",
+        //     style: styles.columnStyle
+        // },
         {
             dataField: "interes",
             text: "Interés",
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle,
             formatter: (cell, row) => {
                 return (
                     <span>{cell}%</span>
@@ -63,6 +72,8 @@ const LoansTable = () => {
         {
             dataField: "cuotas",
             text: "Cuotas",
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle
         },
         // {
         //     dataField: "pago",
@@ -72,6 +83,7 @@ const LoansTable = () => {
             dataField: "action",
             isDummyField: true,
             text: "Acciones",
+            // style: styles.columnStyle,
             formatter: (cell, row) => {
                 return (
                     <>
@@ -94,24 +106,11 @@ const LoansTable = () => {
                                 color="danger"
                                 onClick={() => alert(JSON.stringify(row.id))}
                                 size='sm'
-                                // ref={setTriggerRef}
                                 type="button"
                             >
                                 <i className="nc-icon nc-ruler-pencil" style={styles.buttons} />
                             </Button>
-                            {/* {visible && (
-                                <div ref={setTooltipRef} {...getTooltipProps({ className: 'tooltip-container' })}>
-                                    Eliminar Prestamo
-                                    <div {...getArrowProps({ className: 'tooltip-arrow' })} />
-                                </div>
-                            )} */}
                         </span>
-                        {/* <Tooltip placement="right-end" isOpen={tooltipOpen} target="contrato" toggle={toggle}>
-                            Contrato préstamo
-                        </Tooltip>
-                        <Tooltip placement="right-end" isOpen={tooltipOpen} target="delete" toggle={toggle}>
-                            Eliminar préstamo
-                        </Tooltip> */}
                     </>
                 );
             }
@@ -139,31 +138,29 @@ const LoansTable = () => {
     //     }, 3000);
     // },[users])
 
-    const CaptionElement = () => <h3 style={{ borderRadius: '0.25rem', textAlign: 'center', color: '#FF6426', border: '1px solid #EF8157', padding: '0.4rem' }}>Lista de Préstamos</h3>;
+    const CaptionElement = () => <h3 style={styles.captionStyle}>Lista de Préstamos</h3>;
 
     return (
         <div className="content">
             <CaptionElement />
-            {/* <ModalBtn
-                title="Registrar nuevo préstamo"
-                Component={<LoanForm />}
-            /> */}
-            <ModalLoan
-            // modal={modal}
-            // toggle={toggle}
-            // client={clientSelected}
-            />
-            <ModalCalc
-                title="Calculadora de préstamo"
-                Component={<CalcForm />}
-            />
+            <Button
+                color="success"
+                onClick={toggle}
+            >
+                <i className="nc-icon nc-simple-add mr-2 font-weight-bold" style={{ fontSize: "1rem" }} />
+                Nuevo
+            </Button>
+            <ModalLoan {...{ modal, toggle }} />
+            <ModalCalc title="Calculadora de préstamo" >
+                <CalcForm />
+            </ModalCalc>
             <BootstrapTable
                 bootstrap4
                 keyField="id"
                 data={listLoan}
                 columns={columns}
                 bordered={false}
-                noDataIndication="Table is Empty"
+                noDataIndication="No hay préstamos"
             />
         </div>
     )

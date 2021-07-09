@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-export const ModalCalc = ({ title, Component }) => {
+export const ModalCalc = ({ title, children }) => {
     const [modal, setModal] = React.useState(false)
 
     const toggle = () => setModal(!modal);
@@ -9,7 +9,7 @@ export const ModalCalc = ({ title, Component }) => {
     return (
         <>
             <Button
-                color="primary ml-3 "
+                color="primary ml-2 "
                 onClick={toggle}
             >
                 <i className="nc-icon nc-mobile mr-2 font-weight-bold" style={{ fontSize: "1rem" }} />
@@ -18,10 +18,10 @@ export const ModalCalc = ({ title, Component }) => {
             <Modal isOpen={modal} toggle={toggle} size="lg">
                 <ModalHeader className="text-uppercase d-flex justify-content-center">{title}</ModalHeader>
                 <ModalBody>
-                    {Component}
+                    {children}
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" type="button" onClick={toggle}>Cancel</Button>{' '}
+                    <Button className="mr-2" color="danger" type="button" onClick={toggle}>Cancel</Button>
                     <Button color="primary" type="button" onClick={toggle}>Calcular</Button>
                 </ModalFooter>
             </Modal>

@@ -24,9 +24,7 @@ const initStateLoan = {
 
 export const ModalLoan = ({ modal, toggle, client }) => {
     const addLoan = useLoanStore(state => state.addLoan)
-
     const [loan, setLoan] = useState(initStateLoan)
-
 
     const getInfoLoan = e => {
         const { name, value } = e.target
@@ -48,6 +46,10 @@ export const ModalLoan = ({ modal, toggle, client }) => {
         toggle()
     }
 
+    const generateAmortización = () => {
+        // Aquí generamos la lógica de los objetos con los datos de la amortización 
+    }
+
 
     return (
         <Modal isOpen={modal} toggle={toggle} backdrop={false} size="lg">
@@ -58,7 +60,7 @@ export const ModalLoan = ({ modal, toggle, client }) => {
                 <LoanForm {...{ client, getInfoLoan, loan }} />
             </ModalBody>
             <ModalFooter>
-                <Button className="mr-3" color="danger" type="button" onClick={toggle}>Cancel</Button>
+                <Button className="mr-2" color="danger" type="button" onClick={toggle}>Cancel</Button>
                 <Button color="success" type="button" onClick={addNewLoan}>Agregar Nuevo</Button>
             </ModalFooter>
         </Modal>

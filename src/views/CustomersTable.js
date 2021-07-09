@@ -1,29 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
-// import overlayFactory from 'react-bootstrap-table2-overlay'
 import { Button } from 'reactstrap'
 import ReactTooltip from 'react-tooltip'
 
+import { useCustomerStore } from '../store/store'
 import { ModalCustomer } from 'components/Modal/ModalCustomer'
 import { ModalLoan } from 'components/Modal/ModalLoan';
-import { useCustomerStore } from '../store/store'
 import { useModal } from 'hooks/useModal'
 
-
-const styles = {
-    headerStyle: { width: '7vw' },
-    columnStyle: {
-        wordWrap: 'break-word',
-        fontSize: '.8rem '
-    },
-    captionStyle: {
-        borderRadius: '0.25rem',
-        textAlign: 'center',
-        color: '#FF6426',
-        border: '1px solid #EF8157',
-        padding: '0.4rem'
-    }
-}
+import { styles } from './styles/styles'
 
 const CustomersTable = () => {
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
@@ -177,10 +162,6 @@ const CustomersTable = () => {
     return (
         <div className="content">
             <CaptionElement />
-            {/* <ModalBtn
-                title="Registrar nuevo cliente"
-                Component={<CustomerForm data={getData} />}
-            /> */}
             <ModalCustomer />
             <BootstrapTable
                 bootstrap4
