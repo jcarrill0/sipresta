@@ -5,7 +5,7 @@ export const styles = {
     },
     columnStyle: {
         wordWrap: 'break-word',
-        fontSize: '.8rem '
+        fontSize: '.85rem '
     },
     captionStyle: {
         borderRadius: '0.25rem',
