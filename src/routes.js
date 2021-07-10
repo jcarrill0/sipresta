@@ -22,7 +22,7 @@ let routes = [
   },
   {
     path: "/loans",
-    name: "Prestamos",
+    name: "Préstamos",
     icon: "nc-icon nc-credit-card",
     component: LoansTable,
     layout: "/admin",

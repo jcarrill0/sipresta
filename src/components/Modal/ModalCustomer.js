@@ -112,12 +112,8 @@ export const ModalCustomer = () => {
 
     // Completamos phone, references, addresses and dates
     const addDataExtra = () => {
-        Object.entries(phoneRef).forEach(([key, value]) => {
-            reference.phones.push(value)
-        })
-        Object.entries(phoneCustomer).forEach(([key, value]) => {
-            customer.phones.push(value)
-        })
+        reference.phones = Object.values(phoneRef)
+        customer.phones = Object.values(phoneCustomer)
         customer.addresses.push(addresses)
         customer.references.push(reference)
         customer.create_at = getCurrentDate()

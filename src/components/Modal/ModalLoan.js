@@ -22,6 +22,15 @@ const initStateLoan = {
     _createBy: ""
 }
 
+const fees = {
+    id: 0,
+    datePayment: "",
+    amount: 0,
+    interes: 0,
+    status: "",
+    balance: 0
+}
+
 export const ModalLoan = ({ modal, toggle, client }) => {
     const addLoan = useLoanStore(state => state.addLoan)
     const [loan, setLoan] = useState(initStateLoan)
@@ -49,7 +58,6 @@ export const ModalLoan = ({ modal, toggle, client }) => {
     const generateAmortización = () => {
         // Aquí generamos la lógica de los objetos con los datos de la amortización 
     }
-
 
     return (
         <Modal isOpen={modal} toggle={toggle} backdrop={false} size="lg">
