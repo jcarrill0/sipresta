@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import LoanForm from 'components/Forms/LoanForm';
 import { useLoanStore } from '../../store/store'
-import { getCurrentDate } from '../../helpers/helpers'
+import { getCurrentDate, getDateOfPayments } from '../../helpers/helpers'
 
 
 const initStateLoan = {
@@ -55,7 +55,7 @@ export const ModalLoan = ({ modal, toggle, client }) => {
         toggle()
     }
 
-    const generateAmortización = () => {
+    const generateFees = () => {
         // Aquí generamos la lógica de los objetos con los datos de la amortización 
     }
 
