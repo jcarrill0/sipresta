@@ -22,15 +22,6 @@ const initStateLoan = {
     _createBy: ""
 }
 
-const fees = {
-    id: 0,
-    datePayment: "",
-    amount: 0,
-    interes: 0,
-    status: "",
-    balance: 0
-}
-
 export const ModalLoan = ({ modal, toggle, client }) => {
     const addLoan = useLoanStore(state => state.addLoan)
     const [loan, setLoan] = useState(initStateLoan)
@@ -46,8 +37,40 @@ export const ModalLoan = ({ modal, toggle, client }) => {
 
     }
 
-    const generateFees = () => {
-        // Aquí generamos la lógica de los objetos con los datos de la amortización 
+    const datesByModalPayments = (dateLoan) => {
+        let date = ""
+
+        if (loan.modalidadPago === "diario") {
+            date = getDateOfPayments(dateLoan, 1)
+        } else if (loan.modalidadPago === "semanal") {
+            date = getDateOfPayments(dateLoan, 7)
+        } else if (loan.modalidadPago === "quincenal") {
+            date = getDateOfPayments(dateLoan, 15)
+        } else {
+            date = getDateOfPayments(dateLoan, 30)
+        }
+
+        return date
+    }
+
+    // Aquí generamos la lógica de los objetos con los datos de la amortización 
+    const createListFees = () => {
+        let fees = { id: 0, datePayment: "", amount: 0, interes: 0, status: "", balance: 0 }
+        let auxDateLoan = loan.fechaPrestamo
+        let listFees = []
+
+        for (let i = 0; i < loan.cuotas; i++) {
+            fees.id = i + 1
+            fees.datePayment = datesByModalPayments(auxDateLoan)
+            auxDateLoan = fees.datePayment
+            fees.amount = 0
+            fees.interes = 0
+            fees.status = "pendiente"
+            fees.balance = 0
+            listFees.push(fees)
+        }
+
+        return listFees
     }
 
     const addNewLoan = () => {
