@@ -46,17 +46,17 @@ export const ModalLoan = ({ modal, toggle, client }) => {
 
     }
 
+    const generateFees = () => {
+        // Aquí generamos la lógica de los objetos con los datos de la amortización 
+    }
+
     const addNewLoan = () => {
-        loan.clienteId = client.id
+        if (client !== undefined) { loan.clienteId = client.id }
         loan.create_at = getCurrentDate()
         loan.update_at = getCurrentDate()
         addLoan(loan)
         setLoan({ ...initStateLoan })
         toggle()
-    }
-
-    const generateFees = () => {
-        // Aquí generamos la lógica de los objetos con los datos de la amortización 
     }
 
     return (

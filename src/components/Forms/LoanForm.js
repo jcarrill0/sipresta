@@ -72,10 +72,10 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                     <Input
                                         placeholder="Identificación"
                                         type="text"
-                                        name="numId"
+                                        name="clienteId"
                                         disabled
                                         value={id}
-                                    // onChange={e => changeDatos(e)}
+                                        onChange={e => changeDatos(e)}
                                     />
                                 </FormGroup>
                             </Col>

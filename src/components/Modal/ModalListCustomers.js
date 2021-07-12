@@ -63,6 +63,7 @@ export const ModalListCustomers = ({ modalNested, toggleNested, customer }) => {
                     selectRow={selectRow}
                     bordered={false}
                     noDataIndication="No hay clientes"
+                    hover
                 />
             </ModalBody>
             <ModalFooter>
