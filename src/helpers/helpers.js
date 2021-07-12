@@ -5,14 +5,11 @@ const options = {
     hour12: true
 }
 
-export const getDayMonth = (year, month) => {
-    return new Date(year, month, 0).getDate()
-}
+export const daysInMonth = (month, year) => new Date(year, month, 0).getDate()
+
 
 export const getCurrentDate = () => {
-    // navigator.language
     const date = new Date()
-
     return date.toLocaleString('en-UK', options)
 }
 
@@ -22,5 +19,23 @@ export const getDateOfPayments = (date, days) => {
     let datePayments = new Date(sumDay)
 
     return datePayments.toLocaleString('en-UK', options)
+}
+
+/****************************** 
+** CALCULOS DE LOS PRESTAMOS **  
+*******************************/
+// montoTotal: 22000,
+// montoCuota: 1692.31
+
+export const getAmountInteres = () => {
+    console.log("Get amount interes")
+}
+
+export const getAmountTotal = () => {
+    console.log("Get amount total")
+}
+
+export const getAmountFee = () => {
+    console.log("Get amount Fee")
 }
 
