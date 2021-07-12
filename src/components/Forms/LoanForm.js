@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from "react";
 import {
     Button,
     FormGroup,
@@ -10,6 +10,11 @@ import {
     CardBody,
 } from "reactstrap";
 
+// import { useCustomerStore } from '../../store/store'
+import { ModalListCustomers } from '../Modal/ModalListCustomers'
+import { useModal } from 'hooks/useModal'
+
+
 const styles = {
     fielset: {
         fontSize: ".9rem",
@@ -20,13 +25,25 @@ const styles = {
     legend: { border: "1px solid #C8C8C8" }
 }
 
-// import { useCustomerStore } from '../../store/store'
-
-
 const LoanForm = ({ client, getInfoLoan, loan }) => {
     // const customerList = useCustomerStore(state => state.customerList)
+    const [firstName, setFirstName] = useState("")
+    const [id, setId] = useState("")
+
+    const { modal, toggle } = useModal()
 
     const changeDatos = e => getInfoLoan(e)
+
+    const getCustomer = customer => {
+        if (customer !== undefined) {
+            setFirstName(customer.firstName)
+            setId(customer.numId)
+        }
+    }
+
+    useEffect(() => {
+        getCustomer(client)
+    }, [client])
 
     return (
         <Card>
@@ -44,8 +61,8 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                         type="text"
                                         name="firstName"
                                         disabled
-                                        value={client !== undefined ? client.firstName : null}
-                                        onChange={e => changeDatos(e)}
+                                        value={firstName}
+                                    // onChange={e => changeDatos(e)}
                                     />
                                 </FormGroup>
                             </Col>
@@ -57,7 +74,7 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                         type="text"
                                         name="numId"
                                         disabled
-                                        value={client !== undefined ? client.numId : null}
+                                        value={id}
                                     // onChange={e => changeDatos(e)}
                                     />
                                 </FormGroup>
@@ -70,8 +87,8 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                         className="my-0"
                                         size='sm'
                                         type="button"
+                                        onClick={toggle}
                                         block
-                                        onClick={() => alert("Mostrando lista de clientes")}
                                     >
                                         <i className="nc-icon nc-badge" style={{ fontSize: "1.3rem", padding: ".25rem 0" }} />
                                     </Button>
@@ -180,6 +197,7 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                     </fieldset>
                 </Form>
             </CardBody>
+            <ModalListCustomers modalNested={modal} toggleNested={toggle} customer={getCustomer} />
         </Card>
     )
 }

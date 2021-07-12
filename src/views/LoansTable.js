@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
 // import ReactTooltip from 'react-tooltip'
