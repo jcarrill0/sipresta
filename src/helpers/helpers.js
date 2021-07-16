@@ -1,3 +1,5 @@
+const MILISECONDS_BY_DAY = 1000 * 60 * 60 * 24
+
 const options = {
     timeZone: 'America/Costa_Rica',
     dateStyle: 'full',
@@ -14,7 +16,7 @@ export const getCurrentDate = () => {
 }
 
 export const getDateOfPayments = (date, days) => {
-    let semanaEnMs = 1000 * 60 * 60 * 24 * days
+    let semanaEnMs = MILISECONDS_BY_DAY * days
     let sumDay = new Date(date).getTime() + semanaEnMs
     let datePayments = new Date(sumDay)
 
