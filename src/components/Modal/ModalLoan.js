@@ -55,22 +55,28 @@ export const ModalLoan = ({ modal, toggle, client }) => {
 
     // Aquí generamos la lógica de los objetos con los datos de la amortización 
     const createListFees = () => {
-        let fees = { id: 0, datePayment: "", amount: 0, interes: 0, status: "pendiente", balance: 0 }
-        let auxDateLoan = loan.fechaPrestamo
+        // let fees = { id: 0, datePayment: "", amount: 0, interes: 0, status: "pendiente", balance: 0 }
+        let auxDateLoan = getDateOfPayments(loan.fechaPrestamo, 1)
         let listFees = []
 
-        for (let i = 0; i < loan.cuotas; i++) {
-            fees.id = i + 1
-            fees.datePayment = datesByModalPayments(auxDateLoan)
-            auxDateLoan = fees.datePayment
+        for (let index = 1; index <= loan.cuotas; index++) {
+            let fees = { 
+                id: index, 
+                datePayment: datesByModalPayments(auxDateLoan), 
+                amount: 0, 
+                interes: 0, 
+                status: "pendiente", 
+                balance: 0 
+            }
             listFees.push(fees)
+            auxDateLoan = fees.datePayment
         }
-
         return listFees
     }
 
     const addNewLoan = () => {
         if (client !== undefined) { loan.clienteId = client.id }
+        loan.amortizacion = createListFees()
         loan.create_at = getCurrentDate()
         loan.update_at = getCurrentDate()
         addLoan(loan)

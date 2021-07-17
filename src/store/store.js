@@ -74,9 +74,11 @@ let loanStore = (set, get) => ({
     },
     addLoan: async loan => {
         try {
-            await db.collection("loans").doc().set(loan)
+            
+            console.log(loan);
+            // await db.collection("loans").doc().set(loan)
             // await loanEndpoint.post('/loans.json', loan)
-            set(state => ({ loanList: [...state.loanList, loan] }))
+            // set(state => ({ loanList: [...state.loanList, loan] }))
         } catch (error) {
             console.error(error)
         }

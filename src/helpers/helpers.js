@@ -3,7 +3,6 @@ const MILISECONDS_BY_DAY = 1000 * 60 * 60 * 24
 const options = {
     timeZone: 'America/Costa_Rica',
     dateStyle: 'full',
-    timeStyle: 'medium',
     hour12: true
 }
 
