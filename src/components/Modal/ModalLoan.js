@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import LoanForm from 'components/Forms/LoanForm';
 import { useLoanStore } from '../../store/store'
-import { getCurrentDate, getDateOfPayments } from '../../helpers/helpers'
+import { getCurrentDate, getDateOfPayments, loanCalculate } from '../../helpers/helpers'
 
 
 const initStateLoan = {
@@ -37,39 +37,35 @@ export const ModalLoan = ({ modal, toggle, client }) => {
 
     }
 
-    const datesByModalPayments = (dateLoan) => {
-        let date = ""
-
-        if (loan.modalidadPago === "diario") {
-            date = getDateOfPayments(dateLoan, 1)
-        } else if (loan.modalidadPago === "semanal") {
-            date = getDateOfPayments(dateLoan, 7)
-        } else if (loan.modalidadPago === "quincenal") {
-            date = getDateOfPayments(dateLoan, 15)
-        } else {
-            date = getDateOfPayments(dateLoan, 30)
+    const datesByModalPayments = dateLoan => {
+        const dateOfPayment = {
+            diario: getDateOfPayments(dateLoan, 1),
+            semanal: getDateOfPayments(dateLoan, 7),
+            quincenal: getDateOfPayments(dateLoan, 15),
+            mensual: getDateOfPayments(dateLoan, 30)
         }
-
-        return date
+        return dateOfPayment[loan.modalidadPago]
     }
 
-    // Aquí generamos la lógica de los objetos con los datos de la amortización 
+    // Lista de pagos
     const createListFees = () => {
-        // let fees = { id: 0, datePayment: "", amount: 0, interes: 0, status: "pendiente", balance: 0 }
+        let calculate = loanCalculate(loan.montoCredito, loan.interes, loan.cuotas)
         let auxDateLoan = getDateOfPayments(loan.fechaPrestamo, 1)
+        let auxBalance = calculate.getAmountTotal()
         let listFees = []
 
         for (let index = 1; index <= loan.cuotas; index++) {
-            let fees = { 
-                id: index, 
-                datePayment: datesByModalPayments(auxDateLoan), 
-                amount: 0, 
-                interes: 0, 
-                status: "pendiente", 
-                balance: 0 
+            let fees = {
+                id: index,
+                amount: calculate.getAmountFee(),
+                datePayment: datesByModalPayments(auxDateLoan),
+                status: "pendiente",
+                interes: calculate.getAmountInteres() / loan.cuotas,
+                balance: auxBalance
             }
             listFees.push(fees)
             auxDateLoan = fees.datePayment
+            auxBalance -= fees.amount
         }
         return listFees
     }

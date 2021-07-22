@@ -25,18 +25,24 @@ export const getDateOfPayments = (date, days) => {
 /****************************** 
 ** CALCULOS DE LOS PRESTAMOS **  
 *******************************/
-// montoTotal: 22000,
-// montoCuota: 1692.31
+// montoCredito: 16384,
+// interes: 32.00,
+// numCuotas: 4
+// montoInteres: 5242.88, 
+// montoTotal: 21626.88,
+// montoCuota: 5406.72 
 
-export const getAmountInteres = () => {
-    console.log("Get amount interes")
-}
+export const loanCalculate = (montoCredito, interes, numCuotas) => ({
+    getAmountInteres: function() {
+        return (montoCredito * interes) / 100
+    },
+    getAmountTotal: function() {
+        return montoCredito + this.getAmountInteres()
+    },
+    getAmountFee: function() {
+        return this.getAmountTotal() / numCuotas
+    }
+})
 
-export const getAmountTotal = () => {
-    console.log("Get amount total")
-}
 
-export const getAmountFee = () => {
-    console.log("Get amount Fee")
-}
 

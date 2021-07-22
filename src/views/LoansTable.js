@@ -1,15 +1,15 @@
 import { useState } from 'react'
+
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
-// import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip'
 
 import { customers, loans } from '../db.json'
-
-import CalcForm from 'components/Forms/CalcForm';
+// import { useCustomerStore, useLoanStore } from '../store/store'
 import { ModalCalc } from 'components/Modal/ModalCalc';
 import { ModalLoan } from 'components/Modal/ModalLoan';
 import { useModal } from 'hooks/useModal'
-
+import CalcForm from 'components/Forms/CalcForm';
 import { styles } from './styles/styles'
 
 
@@ -75,10 +75,6 @@ const LoansTable = () => {
             headerStyle: styles.headerStyle,
             style: styles.columnStyle
         },
-        // {
-        //     dataField: "pago",
-        //     text: "Pagos",
-        // },
         {
             dataField: "action",
             isDummyField: true,
@@ -88,29 +84,32 @@ const LoansTable = () => {
                 return (
                     <>
                         < Button
+                            className="mr-1"
                             color="warning"
                             onClick={() => alert(cell)}
                             size='sm'
+                            data-tip="Agregar pago"
+                            data-for="pago"
                         >
                             <i className="nc-icon nc-single-copy-04" style={styles.buttons} />
-                        </ Button>{' '}
+                        </ Button>
+                        <ReactTooltip id="pago" place="top" type="dark" effect="solid" />
                         <Button
+                            className="mr-1"
                             color="primary"
                             onClick={() => alert(JSON.stringify(row.id))}
                             size='sm'
                         >
                             <i className="nc-icon nc-badge" style={styles.buttons} />
-                        </Button> {' '}
-                        <span>
-                            <Button
-                                color="danger"
-                                onClick={() => alert(JSON.stringify(row.id))}
-                                size='sm'
-                                type="button"
-                            >
-                                <i className="nc-icon nc-ruler-pencil" style={styles.buttons} />
-                            </Button>
-                        </span>
+                        </Button> 
+                        <Button
+                            color="danger"
+                            onClick={() => alert(JSON.stringify(row.id))}
+                            size='sm'
+                            type="button"
+                        >
+                            <i className="nc-icon nc-ruler-pencil" style={styles.buttons} />
+                        </Button>
                     </>
                 );
             }

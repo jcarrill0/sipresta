@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import BootstrapTable from 'react-bootstrap-table-next'
+
 import { Button } from 'reactstrap'
+import BootstrapTable from 'react-bootstrap-table-next'
 import ReactTooltip from 'react-tooltip'
 
 import { useCustomerStore } from '../store/store'
 import { ModalCustomer } from 'components/Modal/ModalCustomer'
 import { ModalLoan } from 'components/Modal/ModalLoan';
 import { useModal } from 'hooks/useModal'
-
 import { styles } from './styles/styles'
 
 const CustomersTable = () => {
@@ -93,7 +93,7 @@ const CustomersTable = () => {
                             size='sm'
                             data-tip="Crear Préstamo"
                         >
-                            <i className="nc-icon nc-single-copy-04" style={{ fontSize: "20px" }} />
+                            <i className="nc-icon nc-single-copy-04" style={{ fontSize: "18px" }} />
                         </ Button>
                         <ReactTooltip place="top" type="dark" effect="solid" />
                     </>
@@ -111,14 +111,16 @@ const CustomersTable = () => {
                 return (
                     <>
                         <Button
+                            className="mr-1"
                             color="primary"
                             onClick={() => alert(JSON.stringify(row.id))}
                             size='sm'
                             data-tip="Ver detalle"
                             data-for="mostrar"
                         >
-                            <i className="nc-icon nc-badge" style={{ fontSize: "20px" }} />
-                        </Button> {' '}
+                            <i className="nc-icon nc-badge" style={{ fontSize: "18px" }} />
+                        </Button>
+                        <ReactTooltip id="mostrar" place="top" type="dark" effect="solid" />
                         <Button
                             color="danger"
                             onClick={() => alert(JSON.stringify(row.id))}
@@ -126,9 +128,8 @@ const CustomersTable = () => {
                             data-tip="Eliminar Cliente"
                             data-for="borrar"
                         >
-                            <i className="nc-icon nc-ruler-pencil" style={{ fontSize: "20px" }} />
+                            <i className="nc-icon nc-ruler-pencil" style={{ fontSize: "18px" }} />
                         </Button>
-                        <ReactTooltip id="mostrar" place="top" type="dark" effect="solid" />
                         <ReactTooltip id="borrar" place="top" type="dark" effect="float" />
                     </>
                 );

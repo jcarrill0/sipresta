@@ -1,7 +1,7 @@
 import create from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-// import loanEndpoint from '../config/axios'
+// import loanEndpoint from '../api-config/axios'
 import { db } from '../firebase'
 
 let customerStore = (set, get) => ({
@@ -75,7 +75,7 @@ let loanStore = (set, get) => ({
     addLoan: async loan => {
         try {
             
-            console.log(loan);
+            console.log(loan.amortizacion);
             // await db.collection("loans").doc().set(loan)
             // await loanEndpoint.post('/loans.json', loan)
             // set(state => ({ loanList: [...state.loanList, loan] }))
