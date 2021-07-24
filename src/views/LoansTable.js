@@ -4,11 +4,11 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
 import ReactTooltip from 'react-tooltip'
 
-import { customers, loans } from '../db.json'
+// import { customers, loans } from '../db.json'
 import { useCustomerStore, useLoanStore } from '../store/store'
+import { useModal } from 'hooks/useModal'
 import { ModalCalc } from 'components/Modal/ModalCalc';
 import { ModalLoan } from 'components/Modal/ModalLoan';
-import { useModal } from 'hooks/useModal'
 import CalcForm from 'components/Forms/CalcForm';
 import { styles } from './styles/styles'
 import { loanCalculate } from '../helpers/helpers'
@@ -34,7 +34,6 @@ const LoansTable = () => {
             dataField: "id",
             text: "N° Prestamo",
             sort: true,
-            // headerStyle: styles.headerStyle,
             style: styles.columnStyle
         },
         {
@@ -43,9 +42,10 @@ const LoansTable = () => {
             sort: true,
             style: styles.columnStyle,
             formatter: cell => {
-                let customer = customers.find(item => item.id === cell)
+                // let customer = customers.find(item => item.id === cell)
                 return (
-                    <span>{`${customer.firstName} ${customer.lastName}`}</span>
+                    // <span>{`${customer.firstName} ${customer.lastName}`}</span>
+                    <span>Mi nombre</span>
                 );
             }
         },
