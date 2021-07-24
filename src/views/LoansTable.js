@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
@@ -42,10 +42,14 @@ const LoansTable = () => {
             sort: true,
             style: styles.columnStyle,
             formatter: cell => {
-                // let customer = customers.find(item => item.id === cell)
+                let customer = customerList.find(item => item.id === cell)
                 return (
-                    // <span>{`${customer.firstName} ${customer.lastName}`}</span>
-                    <span>Mi nombre</span>
+                    <span>
+                        { customerList > 0
+                            ? `${customer.firstName} ${customer.lastName}`
+                            : null
+                        }
+                    </span>
                 );
             }
         },
