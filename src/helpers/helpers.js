@@ -32,7 +32,7 @@ export const getDateOfPayments = (date, days) => {
 // montoTotal: 21626.88,
 // montoCuota: 5406.72 
 
-export const loanCalculate = (montoCredito, interes, numCuotas) => ({
+export const loanCalculate = (montoCredito, interes, numCuotas = 0) => ({
     getAmountInteres: function() {
         return (montoCredito * interes) / 100
     },

@@ -31,8 +31,9 @@ function Footer(props) {
           </nav>
           <div className="credits ml-auto">
             <div className="copyright">
-              &copy; {new Date().getFullYear()}, made with
-              <i className="fa fa-heart heart ml-1" /> by Creative Tim
+              &copy; {new Date().getFullYear()}, Derechos reservados
+              {/* , made with
+              <i className="fa fa-heart heart ml-1" /> by Creative Tim */}
             </div>
           </div>
         </Row>

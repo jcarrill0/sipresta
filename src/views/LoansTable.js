@@ -11,6 +11,7 @@ import { ModalLoan } from 'components/Modal/ModalLoan';
 import { useModal } from 'hooks/useModal'
 import CalcForm from 'components/Forms/CalcForm';
 import { styles } from './styles/styles'
+import { loanCalculate } from '../helpers/helpers'
 
 
 const LoansTable = () => {
@@ -19,7 +20,7 @@ const LoansTable = () => {
     const loadLoans = useLoanStore(state => state.getAllLoans)
     const loanList = useLoanStore(state => state.loanList)
     
-    const [listLoan] = useState(loans)
+    // const [listLoan] = useState(loans)
 
     const { modal, toggle } = useModal()
 
@@ -28,12 +29,9 @@ const LoansTable = () => {
         loadLoans()
     }, [loadLoans, loadCustomers])
 
-    if(loanList.length === 0) { console.log("Lista de prestamos vacía") }
-    if(customerList.length > 0) { console.log(customerList) }
-
     const columns = [
         {
-            dataField: "codigo",
+            dataField: "id",
             text: "N° Prestamo",
             sort: true,
             // headerStyle: styles.headerStyle,
@@ -45,49 +43,66 @@ const LoansTable = () => {
             sort: true,
             style: styles.columnStyle,
             formatter: cell => {
-                const customer = customers.find(item => item.id === cell)
-
+                let customer = customers.find(item => item.id === cell)
                 return (
                     <span>{`${customer.firstName} ${customer.lastName}`}</span>
                 );
             }
         },
         {
-            dataField: "fechaPrestamo",
-            text: "Fecha Préstamo",
-            headerAlign: 'center',
-            headerStyle: styles.headerStyle,
-            style: styles.columnStyle
-        },
-        {
             dataField: "montoCredito",
-            text: "Monto Crédito",
+            text: "M. crédito",
             headerAlign: 'center',
             headerStyle: styles.headerStyle,
             style: styles.columnStyle
         },
-        // {
-        //     dataField: "montoTotal",
-        //     text: "Monto Total",
-        //     style: styles.columnStyle
-        // },
         {
             dataField: "interes",
-            text: "Interés",
+            isDummyField: true,
+            text: "M. interés",
+            headerAlign: 'center',
             headerStyle: styles.headerStyle,
             style: styles.columnStyle,
-            formatter: (cell, row) => {
+            formatter: (cell, {montoCredito, interes}) => {
+                const { getAmountInteres } = loanCalculate(montoCredito, interes)
                 return (
-                    <span>{cell}%</span>
+                    <span>{getAmountInteres()}</span>
                 );
             }
         },
         {
-            dataField: "cuotas",
-            text: "Cuotas",
+            dataField: "montoTotal",
+            isDummyField: true,
+            text: "M. total",
+            headerAlign: 'center',
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle,
+            formatter: (cell, {montoCredito, interes}) => {
+                const { getAmountTotal } = loanCalculate(montoCredito, interes)
+                return (
+                    <span>{getAmountTotal()}</span>
+                );
+            }
+        },
+        {
+            dataField: "fechaPrestamo",
+            text: "F. Préstamo",
+            headerAlign: 'center',
             headerStyle: styles.headerStyle,
             style: styles.columnStyle
         },
+        {
+            dataField: "estado",
+            text: "Estado",
+            headerStyle: styles.headerStyle,
+            style: styles.columnStyle
+        },
+        // {
+        //     dataField: "cuotas",
+        //     text: "Cuotas",  
+        //     headerStyle: styles.headerStyle,
+        //     style: styles.columnStyle
+        // },
         {
             dataField: "action",
             isDummyField: true,
