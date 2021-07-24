@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
 import ReactTooltip from 'react-tooltip'
 
 import { customers, loans } from '../db.json'
-// import { useCustomerStore, useLoanStore } from '../store/store'
+import { useCustomerStore, useLoanStore } from '../store/store'
 import { ModalCalc } from 'components/Modal/ModalCalc';
 import { ModalLoan } from 'components/Modal/ModalLoan';
 import { useModal } from 'hooks/useModal'
@@ -14,9 +14,22 @@ import { styles } from './styles/styles'
 
 
 const LoansTable = () => {
+    const loadCustomers = useCustomerStore(state => state.getAllCustomers)
+    const customerList = useCustomerStore(state => state.customerList)
+    const loadLoans = useLoanStore(state => state.getAllLoans)
+    const loanList = useLoanStore(state => state.loanList)
+    
     const [listLoan] = useState(loans)
 
     const { modal, toggle } = useModal()
+
+    useEffect(() => {
+        loadCustomers()
+        loadLoans()
+    }, [loadLoans, loadCustomers])
+
+    if(loanList.length === 0) { console.log("Lista de prestamos vacía") }
+    if(customerList.length > 0) { console.log(customerList) }
 
     const columns = [
         {
@@ -130,13 +143,6 @@ const LoansTable = () => {
     //     alert(`Delete record: ${JSON.stringify(record.firstName)}`);
     // }
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setLoading(false)
-    //         setData(users)
-    //     }, 3000);
-    // },[users])
-
     const CaptionElement = () => <h3 style={styles.captionStyle}>Lista de Préstamos</h3>;
 
     return (
@@ -156,7 +162,7 @@ const LoansTable = () => {
             <BootstrapTable
                 bootstrap4
                 keyField="id"
-                data={listLoan}
+                data={loanList}
                 columns={columns}
                 bordered={false}
                 noDataIndication="No hay préstamos"

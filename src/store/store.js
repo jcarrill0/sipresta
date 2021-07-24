@@ -51,7 +51,7 @@ let customerStore = (set, get) => ({
 
 let loanStore = (set, get) => ({
     loanList: [],
-    getAllPayments: async () => {
+    getAllLoans: async () => {
         try {
             db.collection("loans").onSnapshot(data => {
                 const docs = []
