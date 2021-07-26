@@ -93,7 +93,7 @@ const CustomersTable = () => {
                             size='sm'
                             data-tip="Crear Préstamo"
                         >
-                            <i className="nc-icon nc-single-copy-04" style={{ fontSize: "18px" }} />
+                            <i className="nc-icon nc-single-copy-04" style={styles.buttons} />
                         </ Button>
                         <ReactTooltip place="top" type="dark" effect="solid" />
                     </>
@@ -118,7 +118,7 @@ const CustomersTable = () => {
                             data-tip="Ver detalle"
                             data-for="mostrar"
                         >
-                            <i className="nc-icon nc-badge" style={{ fontSize: "18px" }} />
+                            <i className="nc-icon nc-badge" style={styles.buttons} />
                         </Button>
                         <ReactTooltip id="mostrar" place="top" type="dark" effect="solid" />
                         <Button
@@ -128,7 +128,7 @@ const CustomersTable = () => {
                             data-tip="Eliminar Cliente"
                             data-for="borrar"
                         >
-                            <i className="nc-icon nc-ruler-pencil" style={{ fontSize: "18px" }} />
+                            <i className="nc-icon nc-ruler-pencil" style={styles.buttons} />
                         </Button>
                         <ReactTooltip id="borrar" place="top" type="dark" effect="float" />
                     </>

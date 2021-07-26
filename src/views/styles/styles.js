@@ -13,5 +13,8 @@ export const styles = {
         color: '#FF6426',
         border: '1px solid #EF8157',
         padding: '0.4rem'
+    }, 
+    buttons: {
+        fontSize: '1.2rem'   
     }
 }

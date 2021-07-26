@@ -1,19 +1,47 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
+
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
+import ReactTooltip from 'react-tooltip'
 
 // import LoanForm from 'components/Forms/LoanForm';
-import ModalBtn from 'components/Modal/ModalBtn';
-
 import { payments, customers, loans } from '../db.json'
+import { useCustomerStore, useLoanStore } from '../store/store'
+import { useModal } from 'hooks/useModal'
+import ModalBtn from 'components/Modal/ModalBtn';
 import PaymentForm from 'components/Forms/PaymentForm';
+import { styles } from './styles/styles'
 
-const styles = {
-    buttons: { fontSize: "14px" }
-}
+
+// test de objeto de pago
+// const paymentsObj = {
+//     clientId: "",
+//     loanId: "",
+//     amount: 0,
+//     numFee: 0,
+//     date: "",
+//     paymentMethod: "",
+//     note: "",
+//     _createAt: "",
+//     _updateAt: "",
+//     _createBy: ""
+// }
 
 const PaymentsTable = () => {
     const [listPayments] = useState(payments)
+    const loadCustomers = useCustomerStore(state => state.getAllCustomers)
+    const loadLoans = useLoanStore(state => state.getAllLoans)
+    const customerList = useCustomerStore(state => state.customerList)
+    const loanList = useLoanStore(state => state.loanList)
+
+    // const { modal, toggle } = useModal()
+
+    useEffect(() => {
+        loadCustomers()
+        loadLoans()
+    }, [loadLoans, loadCustomers])  
+
+
     const columns = [
         {
             dataField: "clienteId",
@@ -52,19 +80,21 @@ const PaymentsTable = () => {
                 return (
                     <>
                         < Button
+                            className="mr-1"
                             color="warning"
                             onClick={() => alert(cell)}
                             size='sm'
                         >
                             <i className="nc-icon nc-single-copy-04" style={styles.buttons} />
-                        </ Button>{' '}
+                        </ Button>
                         <Button
+                            className="mr-1"
                             color="primary"
                             onClick={() => alert(JSON.stringify(row.id))}
                             size='sm'
                         >
                             <i className="nc-icon nc-badge" style={styles.buttons} />
-                        </Button> {' '}
+                        </Button>
                         <Button
                             color="danger"
                             onClick={() => alert(JSON.stringify(row.id))}
@@ -93,13 +123,6 @@ const PaymentsTable = () => {
     // const deleteRecord = (record) => {
     //     alert(`Delete record: ${JSON.stringify(record.firstName)}`);
     // }
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setLoading(false)
-    //         setData(users)
-    //     }, 3000);
-    // },[users])
 
     const CaptionElement = () => <h3 style={{ borderRadius: '0.25rem', textAlign: 'center', color: '#FF6426', border: '1px solid #EF8157', padding: '0.4rem' }}>Lista de Pagos</h3>;
 
