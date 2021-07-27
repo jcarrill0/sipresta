@@ -51,6 +51,7 @@ let customerStore = (set, get) => ({
 
 let loanStore = (set, get) => ({
     loanList: [],
+    paymentsList: [],
     getAllLoans: async () => {
         try {
             db.collection("loans").onSnapshot(data => {
@@ -83,6 +84,19 @@ let loanStore = (set, get) => ({
             console.error(error)
         }
     },
+    getAllPayments: (status = 'pago') => {
+        const loans = get().loanList
+        let feeList = []
+        loans.forEach(loan => {
+            const{ amortizacion } = loan
+            amortizacion.forEach(fee => {
+                if(fee.status === status) {
+                   feeList.push({ ...fee, loanId: loan.id, clientId: loan.clientId})
+                }
+            })
+        })
+        set(() => ({ paymentsList: feeList }))
+    }
 })
 
 

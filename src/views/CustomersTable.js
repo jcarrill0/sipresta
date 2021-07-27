@@ -8,33 +8,30 @@ import { useCustomerStore } from '../store/store'
 import { ModalCustomer } from 'components/Modal/ModalCustomer'
 import { ModalLoan } from 'components/Modal/ModalLoan';
 import { useModal } from 'hooks/useModal'
+import { useLoad } from 'hooks/useLoad'
 import { styles } from './styles/styles'
 
 const CustomersTable = () => {
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const customerList = useCustomerStore(state => state.customerList)
-    // const [loading, setLoading] = useState(false)
 
     const [clientSelected, setClientSelected] = useState({})
 
     const { modal, toggle } = useModal()
+    const { loading, setLoading } = useLoad()
 
     const chooseClient = client => {
         setClientSelected(client)
         toggle()
     }
 
-    // const tableLoad = () => {
-    //     setTimeout(() => {
-    //         setLoading(false)
-    //     }, 3000);
-    //     setLoading(true)
-    // }
-
     useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000);
+        setLoading(true)
         loadCustomers()
-        // tableLoad()
-    }, [loadCustomers])
+    }, [loadCustomers, setLoading])
 
     const columns = [
         {
@@ -164,16 +161,22 @@ const CustomersTable = () => {
 
     return (
         <div className="content">
-            <CaptionElement />
-            <ModalCustomer />
-            <BootstrapTable
-                bootstrap4
-                keyField="id"
-                data={customerList}
-                columns={columns}
-                bordered={false}
-                noDataIndication="No hay clientes"
-            />
+            <CaptionElement />  
+            { loading
+              ? <span className="d-block text-center mt-5">Cargando...</span>
+              : 
+                <>
+                    <ModalCustomer />
+                    <BootstrapTable
+                        bootstrap4
+                        keyField="id"
+                        data={customerList}
+                        columns={columns}
+                        bordered={false}
+                        noDataIndication="No hay clientes"
+                    />
+                </>
+            }
             <ModalLoan
                 modal={modal}
                 toggle={toggle}
