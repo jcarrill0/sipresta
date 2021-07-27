@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from 'reactstrap'
-import BootstrapTable from 'react-bootstrap-table-next'
 import ReactTooltip from 'react-tooltip'
+import BootstrapTable from 'react-bootstrap-table-next'
 
 import { useCustomerStore } from '../store/store'
 import { ModalCustomer } from 'components/Modal/ModalCustomer'
@@ -13,6 +13,7 @@ import { styles } from './styles/styles'
 const CustomersTable = () => {
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const customerList = useCustomerStore(state => state.customerList)
+    // const [loading, setLoading] = useState(false)
 
     const [clientSelected, setClientSelected] = useState({})
 
@@ -23,8 +24,16 @@ const CustomersTable = () => {
         toggle()
     }
 
+    // const tableLoad = () => {
+    //     setTimeout(() => {
+    //         setLoading(false)
+    //     }, 3000);
+    //     setLoading(true)
+    // }
+
     useEffect(() => {
         loadCustomers()
+        // tableLoad()
     }, [loadCustomers])
 
     const columns = [
@@ -150,13 +159,6 @@ const CustomersTable = () => {
     // const deleteRecord = (record) => {
     //     alert(`Delete record: ${JSON.stringify(record.firstName)}`);
     // }
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setLoading(false)
-    //         setData(users)
-    //     }, 3000);
-    // },[users])
 
     const CaptionElement = () => <h3 style={styles.captionStyle}>Lista de Clientes</h3>;
 

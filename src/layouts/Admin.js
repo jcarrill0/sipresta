@@ -1,5 +1,4 @@
-
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch, useLocation } from "react-router-dom";
@@ -14,12 +13,12 @@ import routes from "routes.js";
 var ps;
 
 function Dashboard(props) {
-  const [backgroundColor, setBackgroundColor] = React.useState("black");
-  const [activeColor, setActiveColor] = React.useState("info");
-  const mainPanel = React.useRef();
+  const [backgroundColor, setBackgroundColor] = useState("black");
+  const [activeColor, setActiveColor] = useState("info");
+  const mainPanel = useRef();
   const location = useLocation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
@@ -32,7 +31,7 @@ function Dashboard(props) {
     };
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     mainPanel.current.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [location]);

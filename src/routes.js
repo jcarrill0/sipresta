@@ -39,7 +39,6 @@ let routes = [
     name: "Clientes",
     icon: "nc-icon nc-single-02",
     component: CustomersTable,
-    // component: TableList,
     layout: "/admin",
   },
   {

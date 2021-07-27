@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useCustomerStore } from '../../store/store'
 
 import BootstrapTable from 'react-bootstrap-table-next'
-// import { styles } from '../../views/styles/styles'
 
 
 export const ModalListCustomers = ({ modalNested, toggleNested, customer }) => {
