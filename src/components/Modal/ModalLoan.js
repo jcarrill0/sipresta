@@ -10,13 +10,13 @@ const initStateLoan = {
     clienteId: "",
     montoCredito: null,
     cuotas: null,
-    interes: null,
+    interes: null,  
     modalidadPago: "",
     fechaPrestamo: "",
     fechaPago: "",
     estado: "pendiente",
     nota: "",
-    amortizacion: [],
+    amortizacion: null,
     _createAt: "",
     _updateAt: "",
     _createBy: ""
@@ -25,16 +25,16 @@ const initStateLoan = {
 export const ModalLoan = ({ modal, toggle, client }) => {
     const addLoan = useLoanStore(state => state.addLoan)
     const [loan, setLoan] = useState(initStateLoan)
+    const [clientId, setClientId] = useState("")
 
     const getInfoLoan = e => {
         const { name, value } = e.target
-
+        
         if (name === "montoCredito" || name === "cuotas" || name === "interes") {
             setLoan({ ...loan, [name]: parseFloat(value) })
         } else {
             setLoan({ ...loan, [name]: value })
         }
-
     }
 
     const datesByModalPayments = dateLoan => {
@@ -70,11 +70,19 @@ export const ModalLoan = ({ modal, toggle, client }) => {
         return listFees
     }
 
-    const addNewLoan = () => {
-        if (client !== undefined) { loan.clienteId = client.id }
+    const createLoan = () => {
+        if (client !== undefined) { 
+            loan.clienteId = client.id 
+        } else {
+            loan.clienteId = clientId
+        }
         loan.amortizacion = createListFees()
-        loan.create_at = getCurrentDate()
-        loan.update_at = getCurrentDate()
+        loan._createAt = getCurrentDate()
+        loan._updateAt = getCurrentDate()
+    }
+
+    const addNewLoan = () => {
+        createLoan()
         addLoan(loan)
         setLoan({ ...initStateLoan })
         toggle()
@@ -86,7 +94,7 @@ export const ModalLoan = ({ modal, toggle, client }) => {
                 Registrar nuevo Préstamo
             </ModalHeader>
             <ModalBody>
-                <LoanForm {...{ client, getInfoLoan, loan }} />
+                <LoanForm {...{ client, getInfoLoan, loan, setClientId }} />
             </ModalBody>
             <ModalFooter>
                 <Button className="mr-2" color="danger" type="button" onClick={toggle}>Cancel</Button>

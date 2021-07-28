@@ -10,7 +10,7 @@ import {
     CardBody,
 } from "reactstrap";
 
-// import { useCustomerStore } from '../../store/store'
+
 import { ModalListCustomers } from '../Modal/ModalListCustomers'
 import { useModal } from 'hooks/useModal'
 
@@ -25,25 +25,20 @@ const styles = {
     legend: { border: "1px solid #C8C8C8" }
 }
 
-const LoanForm = ({ client, getInfoLoan, loan }) => {
+const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
     // const customerList = useCustomerStore(state => state.customerList)
-    const [firstName, setFirstName] = useState("")
-    const [id, setId] = useState("")
+    // const [firstName, setFirstName] = useState("")
+    // const [id, setId] = useState("")
+    const [customer, setCustomer] = useState(client !== undefined ? client : null)
 
     const { modal, toggle } = useModal()
 
     const changeDatos = e => getInfoLoan(e)
 
-    const getCustomer = customer => {
-        if (customer !== undefined) {
-            setFirstName(customer.firstName)
-            setId(customer.numId)
-        }
-    }
-
     useEffect(() => {
-        getCustomer(client)
-    }, [client])
+        const getCustomer = () => customer && setClientId(customer.id)
+        getCustomer()
+    }, [setClientId, customer])
 
     return (
         <Card>
@@ -61,8 +56,8 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                         type="text"
                                         name="firstName"
                                         disabled
-                                        value={firstName}
-                                    // onChange={e => changeDatos(e)}
+                                        value={customer ? customer.firstName : ""}
+                                        // onChange={e => changeDatos(e)}
                                     />
                                 </FormGroup>
                             </Col>
@@ -74,8 +69,8 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                         type="text"
                                         name="clienteId"
                                         disabled
-                                        value={id}
-                                        onChange={e => changeDatos(e)}
+                                        value={customer ? customer.numId : ""}
+                                        // onChange={e => changeDatos(e)}
                                     />
                                 </FormGroup>
                             </Col>
@@ -188,7 +183,7 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                                         placeholder="Observaciones"
                                         type="textarea"
                                         name="nota"
-                                        value={loan.nota}
+                                        // value={loan.nota}
                                         onChange={e => changeDatos(e)}
                                     />
                                 </FormGroup>
@@ -197,7 +192,7 @@ const LoanForm = ({ client, getInfoLoan, loan }) => {
                     </fieldset>
                 </Form>
             </CardBody>
-            <ModalListCustomers modalNested={modal} toggleNested={toggle} customer={getCustomer} />
+            <ModalListCustomers modalNested={modal} toggleNested={toggle} customer={setCustomer} />
         </Card>
     )
 }

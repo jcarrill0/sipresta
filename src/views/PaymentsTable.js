@@ -31,8 +31,9 @@ const PaymentsTable = () => {
     const [listPayments] = useState(payments)
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const loadLoans = useLoanStore(state => state.getAllLoans)
-    // const customerList = useCustomerStore(state => state.customerList)
-    // const loanList = useLoanStore(state => state.loanList)
+    const paymentsList = useLoanStore(state => state.getAllPayments)
+    const customerList = useCustomerStore(state => state.customerList)
+    const loanList = useLoanStore(state => state.loanList)
     
 
     // const { modal, toggle } = useModal()
@@ -48,10 +49,10 @@ const PaymentsTable = () => {
             isDummyField: true,
             text: "Cliente",
             sort: true,
-            formatter: (cell, row) => {
-                return row.length > 0 ? <span>Nombre y apellido</span> : null
-                // return <span>{`${customer.firstName} ${customer.lastName}`}</span>
-            }
+            // formatter: (cell, row) => {
+            //     return row.length > 0 ? <span>Nombre y apellido</span> : null
+            //     // return <span>{`${customer.firstName} ${customer.lastName}`}</span>
+            // }
         },
         {
             dataField: "prestamoId",
@@ -148,10 +149,10 @@ const PaymentsTable = () => {
             <BootstrapTable
                 bootstrap4
                 keyField="id"
-                data={listPayments}
+                data={paymentsList}
                 columns={columns}
                 bordered={false}
-                noDataIndication="Table is Empty"
+                noDataIndication="No hay pagos registrados"
             />
         </div>
     )

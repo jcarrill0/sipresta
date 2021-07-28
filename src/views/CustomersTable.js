@@ -7,6 +7,7 @@ import BootstrapTable from 'react-bootstrap-table-next'
 import { useCustomerStore } from '../store/store'
 import { ModalCustomer } from 'components/Modal/ModalCustomer'
 import { ModalLoan } from 'components/Modal/ModalLoan';
+import { Spinner } from 'components/Spinner/Spinner'
 import { useModal } from 'hooks/useModal'
 import { useLoad } from 'hooks/useLoad'
 import { styles } from './styles/styles'
@@ -28,7 +29,7 @@ const CustomersTable = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 2000);
+        }, 3400);
         setLoading(true)
         loadCustomers()
     }, [loadCustomers, setLoading])
@@ -163,7 +164,7 @@ const CustomersTable = () => {
         <div className="content">
             <CaptionElement />  
             { loading
-              ? <span className="d-block text-center mt-5">Cargando...</span>
+              ? <Spinner />
               : 
                 <>
                     <ModalCustomer />

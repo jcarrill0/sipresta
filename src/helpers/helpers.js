@@ -37,7 +37,7 @@ export const loanCalculate = (montoCredito, interes, numCuotas = 0) => ({
         return (montoCredito * interes) / 100
     },
     getAmountTotal: function() {
-        return montoCredito + this.getAmountInteres()
+        return montoCredito +  ((montoCredito * interes) / 100)
     },
     getAmountFee: function() {
         return this.getAmountTotal() / numCuotas

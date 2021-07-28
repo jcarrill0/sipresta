@@ -18,10 +18,6 @@ export const ModalListCustomers = ({ modalNested, toggleNested, customer }) => {
             dataField: "numId",
             text: "Cedula",
             sort: true,
-            // headerAlign: 'center',
-            // headerStyle: styles.headerStyle,
-            // style: styles.columnStyle
-
         },
         {
             dataField: "firstName",
