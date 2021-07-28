@@ -16,7 +16,9 @@ const CustomersTable = () => {
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const customerList = useCustomerStore(state => state.customerList)
 
-    const [clientSelected, setClientSelected] = useState({})
+    // controlar que solo se haga una vez el request
+    const [customerFetched, setCustomerFetched] = useState(false)
+    const [clientSelected, setClientSelected] = useState(null)
 
     const { modal, toggle } = useModal()
     const { loading, setLoading } = useLoad()
@@ -27,12 +29,15 @@ const CustomersTable = () => {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 3400);
-        setLoading(true)
-        loadCustomers()
-    }, [loadCustomers, setLoading])
+        // if(!customerFetched) {
+            setTimeout(() => {
+                setLoading(false)
+            }, 3400);
+            setLoading(true)
+            loadCustomers()
+        //     setCustomerFetched(true)
+        // }
+    }, [customerFetched, loadCustomers, setLoading])
 
     const columns = [
         {

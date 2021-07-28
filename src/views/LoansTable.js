@@ -7,11 +7,13 @@ import ReactTooltip from 'react-tooltip'
 // import { customers, loans } from '../db.json'
 import { useCustomerStore, useLoanStore } from '../store/store'
 import { useModal } from 'hooks/useModal'
+import { useLoad } from 'hooks/useLoad'
 import { ModalCalc } from 'components/Modal/ModalCalc';
 import { ModalLoan } from 'components/Modal/ModalLoan';
 import CalcForm from 'components/Forms/CalcForm';
 import { styles } from './styles/styles'
 import { loanCalculate } from '../helpers/helpers'
+import { Spinner } from 'components/Spinner/Spinner';
 
 
 const LoansTable = () => {
@@ -23,11 +25,16 @@ const LoansTable = () => {
     // const [listLoan] = useState(loans)
 
     const { modal, toggle } = useModal()
+    const { loading, setLoading } = useLoad()
 
     useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 3400);
+        setLoading(true)
         loadCustomers()
         loadLoans()
-    }, [loadLoans, loadCustomers])
+    }, [loadLoans, loadCustomers, setLoading])
 
     const columns = [
         {
@@ -45,7 +52,7 @@ const LoansTable = () => {
                 let customer = customerList.find(item => item.id === cell)
                 return (
                     <span>
-                        { customerList > 0
+                        { customerList && customerList.length
                             ? `${customer.firstName} ${customer.lastName}`
                             : null
                         }
@@ -167,25 +174,33 @@ const LoansTable = () => {
     return (
         <div className="content">
             <CaptionElement />
-            <Button
-                color="success"
-                onClick={toggle}
-            >
-                <i className="nc-icon nc-simple-add mr-2 font-weight-bold" style={{ fontSize: "1rem" }} />
-                Nuevo
-            </Button>
-            <ModalLoan {...{ modal, toggle }} />
-            <ModalCalc title="Calculadora de préstamo" >
-                <CalcForm />
-            </ModalCalc>
-            <BootstrapTable
-                bootstrap4
-                keyField="id"
-                data={loanList}
-                columns={columns}
-                bordered={false}
-                noDataIndication="No hay préstamos"
-            />
+            { loading
+              ? <Spinner />
+              : 
+                <>
+                    <Button
+                        color="success"
+                        onClick={toggle}
+                    >
+                        <i className="nc-icon nc-simple-add mr-2 font-weight-bold" style={{ fontSize: "1rem" }} />
+                        Nuevo
+                    </Button>
+                    <ModalLoan {...{ modal, toggle }} />
+                    <ModalCalc title="Calculadora de préstamo" >
+                        <CalcForm />
+                    </ModalCalc>
+                    <BootstrapTable
+                        bootstrap4
+                        keyField="id"
+                        data={loanList}
+                        columns={columns}
+                        bordered={false}
+                        noDataIndication="No hay préstamos"
+                    />
+                </>
+
+            }
+            
         </div>
     )
 }

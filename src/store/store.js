@@ -30,7 +30,7 @@ let customerStore = (set, get) => ({
     addCustomer: async customer => {
         try {
             await db.collection("customers").doc().set(customer)
-            set(state => ({ customerList: [...state.customerList, customer] }))
+            // set(state => ({ customerList: [...state.customerList, customer] }))
             // await loanEndpoint.put(`/customers/${customer.numId}.json`, customer)
         } catch (error) {
             console.error(error)
@@ -68,7 +68,7 @@ let loanStore = (set, get) => ({
         try {
             console.log(loan);
             await db.collection("loans").doc().set(loan)
-            set(state => ({ loanList: [...state.loanList, loan] }))
+            // set(state => ({ loanList: [...state.loanList, loan] }))
         } catch (error) {
             console.error(error)
         }
@@ -76,11 +76,11 @@ let loanStore = (set, get) => ({
     getAllPayments: (status = 'pago') => {
         const loans = get().loanList
         let feeList = []
-        loans.forEach(loan => {
+        loans.forEach((loan, idx) => {
             const{ amortizacion } = loan
-            amortizacion.forEach(fee => {
+            amortizacion.forEach((fee, index) => {
                 if(fee.status === status) {
-                   feeList.push({ ...fee, loanId: loan.id, clientId: loan.clientId})
+                   feeList.push({ ...fee, _id: `${idx}${index}`, loanId: loan.id, clientId: loan.clienteId})
                 }
             })
         })

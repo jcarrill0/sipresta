@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 import ReactTooltip from 'react-tooltip'
 
 // import LoanForm from 'components/Forms/LoanForm';
-import { payments, customers, loans } from '../db.json'
+// import { payments, customers, loans } from '../db.json'
 import { useCustomerStore, useLoanStore } from '../store/store'
 // import { useModal } from 'hooks/useModal'
 import ModalBtn from 'components/Modal/ModalBtn';
@@ -28,11 +28,12 @@ import { styles } from './styles/styles'
 // }
 
 const PaymentsTable = () => {
-    const [listPayments] = useState(payments)
+    // const [listPayments] = useState(payments)
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const loadLoans = useLoanStore(state => state.getAllLoans)
-    const paymentsList = useLoanStore(state => state.getAllPayments)
+    const loadPayments = useLoanStore(state => state.getAllPayments)
     const customerList = useCustomerStore(state => state.customerList)
+    const paymentsList = useLoanStore(state => state.paymentsList)
     const loanList = useLoanStore(state => state.loanList)
     
 
@@ -41,17 +42,28 @@ const PaymentsTable = () => {
     useEffect(() => {
         loadCustomers()
         loadLoans()
-    }, [loadLoans, loadCustomers]) 
+        loadPayments('pendiente')
+    }, [loadLoans, loadCustomers, loadPayments]) 
+
+    if(customerList && customerList.length) {
+        console.log(paymentsList)
+    }
 
     const columns = [
         {
             dataField: "clienteId",
-            isDummyField: true,
             text: "Cliente",
             sort: true,
-            // formatter: (cell, row) => {
-            //     return row.length > 0 ? <span>Nombre y apellido</span> : null
-            //     // return <span>{`${customer.firstName} ${customer.lastName}`}</span>
+            // formatter: cell => {
+            //     let customer = customerList.find(item => item.id === cell)
+            //     return (
+            //         <span>
+            //             { customerList && customerList.length
+            //                 ? `${customer.firstName} ${customer.lastName}`
+            //                 : null
+            //             }
+            //         </span>
+            //     )
             // }
         },
         {
@@ -148,7 +160,7 @@ const PaymentsTable = () => {
             />
             <BootstrapTable
                 bootstrap4
-                keyField="id"
+                keyField="_id"
                 data={paymentsList}
                 columns={columns}
                 bordered={false}
