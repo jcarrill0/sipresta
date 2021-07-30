@@ -13,7 +13,6 @@ import { useLoad } from 'hooks/useLoad'
 import { styles } from './styles/styles'
 
 const CustomersTable = () => {
-    
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const loadLoan = useLoanStore(state => state.getAllLoans)
     const customerList = useCustomerStore(state => state.customerList)
