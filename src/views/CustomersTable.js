@@ -4,7 +4,7 @@ import { Button } from 'reactstrap'
 import ReactTooltip from 'react-tooltip'
 import BootstrapTable from 'react-bootstrap-table-next'
 
-import { useCustomerStore } from '../store/store'
+import { useCustomerStore, useLoanStore} from '../store/store'
 import { ModalCustomer } from 'components/Modal/ModalCustomer'
 import { ModalLoan } from 'components/Modal/ModalLoan';
 import { Spinner } from 'components/Spinner/Spinner'
@@ -13,31 +13,36 @@ import { useLoad } from 'hooks/useLoad'
 import { styles } from './styles/styles'
 
 const CustomersTable = () => {
+    
     const loadCustomers = useCustomerStore(state => state.getAllCustomers)
+    const loadLoan = useLoanStore(state => state.getAllLoans)
     const customerList = useCustomerStore(state => state.customerList)
+    const loanList = useLoanStore(state => state.loanList)
 
-    // controlar que solo se haga una vez el request
-    const [customerFetched, setCustomerFetched] = useState(false)
     const [clientSelected, setClientSelected] = useState(null)
 
     const { modal, toggle } = useModal()
     const { loading, setLoading } = useLoad()
 
     const chooseClient = client => {
-        setClientSelected(client)
-        toggle()
+        loadLoan()
+        let foundClient = loanList.findIndex(loan => client.id === loan.clienteId)
+        if(foundClient < 0) {
+            setClientSelected(client)
+            toggle()
+        } else {
+            alert(`El cliente ya tiene préstamo`)
+        }
+        
     }
 
     useEffect(() => {
-        // if(!customerFetched) {
             setTimeout(() => {
                 setLoading(false)
-            }, 3400);
+            }, 3000)
             setLoading(true)
             loadCustomers()
-        //     setCustomerFetched(true)
-        // }
-    }, [customerFetched, loadCustomers, setLoading])
+    }, [loadCustomers, setLoading])
 
     const columns = [
         {
@@ -54,12 +59,10 @@ const CustomersTable = () => {
             text: "Name",
             sort: true,
             headerAlign: 'center',
-            style: styles.columnStyle
-            // const customer = customers.find(item => item.id === cell)
-
-            // return (
-            //     <span>{`${customer.firstName} ${customer.lastName}`}</span>
-            // );
+            style: styles.columnStyle,
+            formatter: (cell, row) => {
+                return <span>{cell} {row.lastName}</span>
+            }
         },
         {
             dataField: "email",

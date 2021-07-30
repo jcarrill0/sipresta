@@ -30,7 +30,7 @@ const LoansTable = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 3400);
+        }, 3000);
         setLoading(true)
         loadCustomers()
         loadLoans()

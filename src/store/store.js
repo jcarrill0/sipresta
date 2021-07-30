@@ -74,17 +74,21 @@ let loanStore = (set, get) => ({
         }
     },
     getAllPayments: (status = 'pago') => {
-        const loans = get().loanList
+        const loans = get().loanList 
         let feeList = []
-        loans.forEach((loan, idx) => {
-            const{ amortizacion } = loan
-            amortizacion.forEach((fee, index) => {
-                if(fee.status === status) {
-                   feeList.push({ ...fee, _id: `${idx}${index}`, loanId: loan.id, clientId: loan.clienteId})
-                }
+        
+        if(loans.length > 0){
+            loans.forEach((loan, idx) => {
+                const{ amortizacion } = loan
+                amortizacion.forEach((fee, index) => {
+                    if(fee.status === status) {
+                        feeList.push({ ...fee, _id: `${idx}${index}`, loanId: loan.id, clientId: loan.clienteId})
+                    }
+                })
             })
-        })
-        set(() => ({ paymentsList: feeList }))
+            // set(() => ({ paymentsList: feeList }))
+        }
+        return feeList
     }
 })
 

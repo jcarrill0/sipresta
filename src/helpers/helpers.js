@@ -44,5 +44,20 @@ export const loanCalculate = (montoCredito, interes, numCuotas = 0) => ({
     }
 })
 
+export const getPayments = (loans, status = 'pago') => {
+    let feeList = []
+    
+    if(loans.length){
+        loans.forEach((loan, idx) => {
+            const { amortizacion } = loan
+            amortizacion.forEach((fee, index) => {
+                if(fee.status === status) {
+                    feeList.push({ ...fee, _id: `${idx}${index}`, loanId: loan.id, clientId: loan.clienteId})
+                }
+            })
+        })
+    }
+    return feeList
+}
 
 
