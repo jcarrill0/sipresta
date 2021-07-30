@@ -60,4 +60,27 @@ export const getPayments = (loans, status = 'pago') => {
     return feeList
 }
 
+/*
+/// EJEMPLO DE GENERADOR DE CODIGO
+
+//tomamos la ultima id
+$consu = $db->query("SELECT * FROM tabla ORDER BY id DESC");
+$total = mysqli_num_rows($consu);
+$rowid = $consu->fetch_assoc();
+ 
+ 
+$codigo = sprintf("%06d", $rowid['id']+1); //le asignamos ceros antes a nuestra id para formatearla ejemplo 000015
+ 
+$prefijo = "ABC";
+ 
+$cod_final = $prefijo."-".$codigo; //quedaria algo asi ABC-000015
+ 
+//guardamos el codigo en la base de datos
+$guarda = $db->query("INSERT INTO tabla (codigo) VALUE ('$cod_final')");
+ 
+//mostramos el Codigo
+echo $cod_final;
+
+*/
+
 

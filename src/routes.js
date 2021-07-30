@@ -21,6 +21,13 @@ let routes = [
     layout: "/admin",
   },
   {
+    path: "/customers",
+    name: "Clientes",
+    icon: "nc-icon nc-single-02",
+    component: CustomersTable,
+    layout: "/admin",
+  },
+  {
     path: "/loans",
     name: "Préstamos",
     icon: "nc-icon nc-credit-card",
@@ -32,13 +39,6 @@ let routes = [
     name: "Pagos",
     icon: "nc-icon nc-money-coins",
     component: PaymentsTable,
-    layout: "/admin",
-  },
-  {
-    path: "/customers",
-    name: "Clientes",
-    icon: "nc-icon nc-single-02",
-    component: CustomersTable,
     layout: "/admin",
   },
   {

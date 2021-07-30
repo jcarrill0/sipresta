@@ -1,17 +1,16 @@
-    import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
-    import BootstrapTable from 'react-bootstrap-table-next';
-    import { Button } from 'reactstrap';
-    import ReactTooltip from 'react-tooltip'
+import BootstrapTable from 'react-bootstrap-table-next';
+import { Button } from 'reactstrap';
+import ReactTooltip from 'react-tooltip'
 
-    import { useCustomerStore, useLoanStore } from '../store/store'
-    import { Spinner } from 'components/Spinner/Spinner'
-    // import { useModal } from 'hooks/useModal'
-    import { useLoad } from 'hooks/useLoad'
-    import ModalBtn from 'components/Modal/ModalBtn';
-    import PaymentForm from 'components/Forms/PaymentForm';
-    import { styles } from './styles/styles'
-    import { getPayments } from '../helpers/helpers'
+import { useCustomerStore, useLoanStore } from '../store/store'
+import { Spinner } from 'components/Spinner/Spinner'
+import { useModal } from 'hooks/useModal'
+import { useLoad } from 'hooks/useLoad'
+import { styles } from './styles/styles'
+import { getPayments } from '../helpers/helpers'
+import { ModalPayment } from 'components/Modal/ModalPayment';
 
 
     // test de objeto de pago
@@ -35,7 +34,7 @@
         const loanList = useLoanStore(state => state.loanList)
         const [paymentsList, setPaymentsList] = useState([])
         
-        // const { modal, toggle } = useModal()
+        const { modal, toggle } = useModal()
         const { loading, setLoading } = useLoad()
 
 
@@ -173,10 +172,14 @@
                 ? <Spinner />
                 : 
                     <>
-                        <ModalBtn
-                            title="Registrar nuevo pago"
-                            Component={<PaymentForm />}
-                        />
+                        <Button
+                            color="success"
+                            onClick={toggle}
+                        >
+                            <i className="nc-icon nc-simple-add mr-2 font-weight-bold" style={{ fontSize: "1rem" }} />
+                            Nuevo
+                        </Button>
+                        <ModalPayment {...{ modal, toggle }} />
                         <BootstrapTable
                             bootstrap4
                             keyField="_id"
@@ -188,18 +191,6 @@
                     </>
 
                 }
-                {/* <ModalBtn
-                    title="Registrar nuevo pago"
-                    Component={<PaymentForm />}
-                />
-                <BootstrapTable
-                    bootstrap4
-                    keyField="_id"
-                    data={paymentsList}
-                    columns={columns}
-                    bordered={false}
-                    noDataIndication="No hay pagos registrados"
-                /> */}
             </div>
         )
     }

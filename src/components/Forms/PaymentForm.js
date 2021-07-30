@@ -1,10 +1,6 @@
-import React from 'react'
+import { useEffect, useState } from "react";
 import {
-    // TabContent,
-    // TabPane,
-    // Nav,
-    // NavItem,
-    // NavLink,
+    Button,
     FormGroup,
     Form,
     Input,
@@ -12,49 +8,97 @@ import {
     Col,
     Card,
     CardBody,
-} from "reactstrap";
+} from "reactstrap"
+
+import { ModalListCustomers } from '../Modal/ModalListCustomers'
+import { useModal } from 'hooks/useModal'
 
 
-function PaymentForm() {
+//Refactorizar pediente
+const styles = {
+    fielset: {
+        fontSize: ".9rem",
+        fontWeight: "600",
+        color: "#9A9DA9",
+        paddingLeft: ".2rem"
+    },
+    legend: { border: "1px solid #C8C8C8" }
+}
+
+
+function PaymentForm(props) {
+    // const [customer, setCustomer] = useState(client !== undefined ? client : null)
+    const [customer, setCustomer] = useState(null)
+
+    const { modal, toggle } = useModal()
+
     return (
         <Card>
             <CardBody>
                 <Form>
-                    <Row form>
-                        <Col md="8">
-                            <FormGroup>
-                                <label>Cliente</label>
-                                <Input
-                                    placeholder="Cliente"
-                                    type="text"
-                                    name="cliente"
-                                />
-                            </FormGroup>
-                        </Col>
-                        <Col md="4">
-                            <FormGroup>
-                                <label>Fecha de Pago</label>
-                                <Input
-                                    placeholder=""
-                                    type="date"
-                                    name="paymentDate"
-                                />
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row form>
-                        <Col md="12">
-                            <FormGroup>
-                                <Input
-                                    placeholder="Nota:"
-                                    type="textarea"
-                                    name="comment"
-                                />
-                            </FormGroup>
-                        </Col>
-                    </Row>
+                    {/* Refactorizar crear un componente del fieldset cliente */}
+                    <fieldset className="px-2 mb-2" style={styles.legend}>
+                        <legend style={styles.fielset}>Información del Cliente</legend>
+                        <Row form>
+                            <Col md="6">
+                                {/* Nota: crear un select con todo los nombres de los clientes */}
+                                <FormGroup>
+                                    <label>Nombre completo</label>
+                                    <Input
+                                        placeholder="Cliente"
+                                        type="text"
+                                        name="firstName"
+                                        disabled
+                                        value={customer ? customer.firstName : ""}
+                                    />
+                                </FormGroup>
+                            </Col>
+                            <Col md="5">
+                                <FormGroup>
+                                    <label>Identificación</label>
+                                    <Input
+                                        placeholder="Identificación"
+                                        type="text"
+                                        name="clienteId"
+                                        disabled
+                                        value={customer ? customer.numId : ""}
+                                    />
+                                </FormGroup>
+                            </Col>
+                            <Col md="1">
+                                <FormGroup>
+                                    <label className="invisible">Buscar</label>
+                                    <Button
+                                        color="danger"
+                                        className="my-0"
+                                        size='sm'
+                                        type="button"
+                                        onClick={toggle}
+                                        block
+                                    >
+                                        <i className="nc-icon nc-badge" style={{ fontSize: "1.3rem", padding: ".25rem 0" }} />
+                                    </Button>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                    </fieldset>
+                    <fieldset className="px-2 mb-2" style={styles.legend}>
+                        <legend style={styles.fielset}>Información de cuotas</legend>
+                        <Row form>
+                            <Col md="12">
+                                <FormGroup>
+                                    <Input
+                                        placeholder="Nota:"
+                                        type="textarea"
+                                        name="comment"
+                                    />
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                    </fieldset>
                 </Form>
             </CardBody>
+            <ModalListCustomers modalNested={modal} toggleNested={toggle} customer={setCustomer} />
         </Card>
     )
 }

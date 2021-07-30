@@ -8,12 +8,13 @@ import ReactTooltip from 'react-tooltip'
 import { useCustomerStore, useLoanStore } from '../store/store'
 import { useModal } from 'hooks/useModal'
 import { useLoad } from 'hooks/useLoad'
+import CalcForm from 'components/Forms/CalcForm';
 import { ModalCalc } from 'components/Modal/ModalCalc';
 import { ModalLoan } from 'components/Modal/ModalLoan';
-import CalcForm from 'components/Forms/CalcForm';
 import { styles } from './styles/styles'
 import { loanCalculate } from '../helpers/helpers'
 import { Spinner } from 'components/Spinner/Spinner';
+
 
 
 const LoansTable = () => {

@@ -14,7 +14,7 @@ import {
 import { ModalListCustomers } from '../Modal/ModalListCustomers'
 import { useModal } from 'hooks/useModal'
 
-
+//Refactorizar pediente
 const styles = {
     fielset: {
         fontSize: ".9rem",
@@ -44,6 +44,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
         <Card>
             <CardBody>
                 <Form>
+                    {/* Refactorizar crear un componente del fieldset cliente */}
                     <fieldset className="px-2 mb-2" style={styles.legend}>
                         <legend style={styles.fielset}>Información del Cliente</legend>
                         <Row form>
