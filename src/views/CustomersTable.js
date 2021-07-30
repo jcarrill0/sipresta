@@ -26,6 +26,7 @@ const CustomersTable = () => {
     const chooseClient = client => {
         loadLoan()
         let foundClient = loanList.findIndex(loan => client.id === loan.clienteId)
+        
         if(foundClient < 0) {
             setClientSelected(client)
             toggle()
