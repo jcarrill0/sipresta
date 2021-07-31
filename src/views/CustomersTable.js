@@ -52,7 +52,6 @@ const CustomersTable = () => {
             headerAlign: 'center',
             headerStyle: styles.headerStyle,
             style: styles.columnStyle
-
         },
         {
             dataField: "firstName",

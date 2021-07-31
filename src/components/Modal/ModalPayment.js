@@ -16,7 +16,7 @@ export const ModalPayment = ({ modal, toggle, client}) => {
     // }, [])
 
     return (
-        <Modal isOpen={modal} toggle={toggle} backdrop={false} size="lg">
+        <Modal isOpen={modal} toggle={toggle} backdrop={false} size="xl">
             <ModalHeader className="text-uppercase d-flex justify-content-center">
                 Registrar nuevo Pago
             </ModalHeader>

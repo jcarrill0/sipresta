@@ -48,7 +48,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                     <fieldset className="px-2 mb-2" style={styles.legend}>
                         <legend style={styles.fielset}>Información del Cliente</legend>
                         <Row form>
-                            <Col md="6">
+                            <Col md={6}>
                                 {/* Nota: crear un select con todo los nombres de los clientes */}
                                 <FormGroup>
                                     <label>Nombre completo</label>
@@ -62,7 +62,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                                     />
                                 </FormGroup>
                             </Col>
-                            <Col md="5">
+                            <Col md={5}>
                                 <FormGroup>
                                     <label>Identificación</label>
                                     <Input
@@ -75,7 +75,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                                     />
                                 </FormGroup>
                             </Col>
-                            <Col md="1">
+                            <Col md={1}>
                                 <FormGroup>
                                     <label className="invisible">Buscar</label>
                                     <Button
@@ -95,7 +95,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                     <fieldset className="px-2 mt-3" style={styles.legend}>
                         <legend style={styles.fielset}>Información del Crédito</legend>
                         <Row form>
-                            <Col md="4">
+                            <Col md={4}>
                                 <FormGroup>
                                     <label>Monto a Prestar</label>
                                     <Input
@@ -107,7 +107,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                                     />
                                 </FormGroup>
                             </Col>
-                            <Col md="4">
+                            <Col md={4}>
                                 <FormGroup>
                                     <label>Forma de Pago</label>
                                     <Input
@@ -125,7 +125,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                                     </Input>
                                 </FormGroup>
                             </Col>
-                            <Col md="4">
+                            <Col md={4}>
                                 <FormGroup>
                                     <label>Interés(%)</label>
                                     <Input
@@ -139,7 +139,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                             </Col>
                         </Row>
                         <Row form>
-                            <Col md="4">
+                            <Col md={4}>
                                 <FormGroup>
                                     <label>Cuotas</label>
                                     <Input
@@ -151,7 +151,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                                     />
                                 </FormGroup>
                             </Col>
-                            <Col md="4">
+                            <Col md={4}>
                                 <FormGroup>
                                     <label>Fecha Préstamo</label>
                                     <Input
@@ -163,7 +163,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                                     />
                                 </FormGroup>
                             </Col>
-                            <Col md="4">
+                            <Col md={4}>
                                 <FormGroup>
                                     <label>Fecha Primer Pago</label>
                                     <Input
@@ -177,7 +177,7 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                             </Col>
                         </Row>
                         <Row form>
-                            <Col md="12">
+                            <Col md={12}>
                                 <FormGroup>
                                     {/* <label>Observaciones</label> */}
                                     <Input

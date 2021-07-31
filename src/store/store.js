@@ -27,6 +27,14 @@ let customerStore = (set, get) => ({
             console.error(error)
         }
     },
+    getCustomerById: async id => {
+        try {
+            let doc = await db.collection("customers").doc(id).get()
+            return doc.data()
+        } catch (error) {
+            console.error(error)
+        }
+    },
     addCustomer: async customer => {
         try {
             await db.collection("customers").doc().set(customer)
@@ -46,9 +54,9 @@ let customerStore = (set, get) => ({
             console.error(error)
         }
     },
-    updateCustomer: async customer => {
+    updateCustomer: async (id, customer) => {
         try {
-            // await db.collection("customers").doc().set(customer)
+            await db.collection("customers").doc(id).update(customer)
             // newClientList = get().customerList.map(c => c.id === customer.id ? {...c, loan: customer.loan} : c)
             // await loanEndpoint.patch(`/customers/${customer.numId}.json`, customer)
             // set(state => ({ customerList: newClientList }))
@@ -87,6 +95,14 @@ let loanStore = (set, get) => ({
             await db.collection("loans").doc(id).delete()
             let deleteLoanList = get().loanList.filter(item => item.id !== id)
             set(() => ({ loanList: deleteLoanList }))
+        } catch (error) {
+            console.error(error)
+        }
+    },
+    updateLoan: async (id, loan) => {
+        try {
+            await db.collection("loans").doc(id).update(loan)
+            // newClientList = get().customerList.map(c => c.id === customer.id ? {...c, loan: customer.loan} : c)
         } catch (error) {
             console.error(error)
         }

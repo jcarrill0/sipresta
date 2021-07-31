@@ -5,7 +5,7 @@ export const styles = {
     },
     columnStyle: {
         wordWrap: 'break-word',
-        fontSize: '.82rem '
+        fontSize: '.82rem',
     },
     captionStyle: {
         borderRadius: '0.25rem',
@@ -16,5 +16,12 @@ export const styles = {
     }, 
     buttons: {
         fontSize: '1.2rem'   
-    }
+    },
+    fielset: {
+        fontSize: ".9rem",
+        fontWeight: "600",
+        color: "#9A9DA9",
+        paddingLeft: ".2rem"
+    },
+    legend: { border: "1px solid #C8C8C8" }
 }
