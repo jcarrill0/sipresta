@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
     Button,
     FormGroup,
@@ -10,6 +10,7 @@ import {
     CardBody,
 } from "reactstrap"
 
+import { useLoanStore } from '../../store/store'
 import { ModalListCustomers } from '../Modal/ModalListCustomers'
 import { useModal } from 'hooks/useModal'
 
@@ -26,11 +27,38 @@ const styles = {
 }
 
 
-function PaymentForm(props) {
-    // const [customer, setCustomer] = useState(client !== undefined ? client : null)
-    const [customer, setCustomer] = useState(null)
+function PaymentForm({ client, setClientId, ...props }) {
+    const  loanList = useLoanStore(state => state.loanList)
+    const [customer, setCustomer] = useState(client !== undefined ? client : null)
+    const [loan, setLoan] = useState(null)
 
     const { modal, toggle } = useModal()
+
+    
+    const getCustomer = useCallback(
+        () => customer && setClientId(customer.id), 
+        [setClientId, customer]
+    )
+
+    const getLoan = useCallback(
+        () => {
+            if(customer) {
+                let loanFound = loanList.find(item => item.clienteId === customer.id)
+                setLoan(loanFound)
+            } 
+        }, [loanList, customer]
+    )
+
+    const loadDataForm = useCallback(
+        () => {
+            getCustomer()
+            getLoan()
+        }, [getCustomer,  getLoan],
+    )
+
+    useEffect(() => {
+        loadDataForm()
+    }, [loadDataForm])
 
     return (
         <Card>

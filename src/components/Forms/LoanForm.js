@@ -193,7 +193,11 @@ const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
                     </fieldset>
                 </Form>
             </CardBody>
-            <ModalListCustomers modalNested={modal} toggleNested={toggle} customer={setCustomer} />
+            <ModalListCustomers 
+                modalNested={modal} 
+                toggleNested={toggle} 
+                customer={setCustomer} 
+            />
         </Card>
     )
 }
