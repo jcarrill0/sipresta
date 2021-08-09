@@ -26,16 +26,12 @@ const LoansTable = () => {
     // const [listLoan] = useState(loans)
 
     const { modal, toggle } = useModal()
-    const { loading, setLoading } = useLoad()
+    const { loading } = useLoad()
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 3000);
-        setLoading(true)
         loadCustomers()
         loadLoans()
-    }, [loadLoans, loadCustomers, setLoading])
+    }, [loadLoans, loadCustomers])
 
     const columns = [
         {

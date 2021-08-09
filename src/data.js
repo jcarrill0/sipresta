@@ -91,3 +91,36 @@ export let payments = [
     }
 ]
 
+export let wallet = [
+    {
+        id: "",
+        nombre: "",
+        city: "",
+        _createAt: "",
+        _updateAt: "",
+        _createBy: ""
+    }
+]
+
+export let users = [
+    {
+        id: "",
+        username: "",
+        password: "",
+        nombre: "",
+        nivel: "",  // role (administrador - cobrador)
+        walletId: "",
+        _createAt: "",
+        _updateAt: "",
+        _createBy: ""
+    }
+]
+
+export let employees =  [
+    {}
+]
+
+export let expenses = [
+    {}
+]
+

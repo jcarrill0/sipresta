@@ -35,7 +35,7 @@ import { ModalPayment } from 'components/Modal/ModalPayment';
         const [paymentsList, setPaymentsList] = useState([])
         
         const { modal, toggle } = useModal()
-        const { loading, setLoading } = useLoad()
+        const { loading } = useLoad()
 
 
         const loadPayments =  useCallback(
@@ -47,13 +47,6 @@ import { ModalPayment } from 'components/Modal/ModalPayment';
                 
             }, [loanList],
         )
-
-        useEffect(() => {
-            setTimeout(() => {
-                setLoading(false)
-            }, 3000)
-            setLoading(true)
-        }, [setLoading])
         
         useEffect(() => {
             loadCustomers()

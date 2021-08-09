@@ -8,7 +8,8 @@ export const ModalPayment = ({ modal, toggle, client}) => {
     const [clientId, setClientId] = useState("")
 
     const addNewPayment = () => {
-        return
+        alert('Pago registrado exitosamente')
+        // toggle()
     }
 
     // useEffect(() => {

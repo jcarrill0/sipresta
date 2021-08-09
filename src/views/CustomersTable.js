@@ -21,7 +21,7 @@ const CustomersTable = () => {
     const [clientSelected, setClientSelected] = useState(null)
 
     const { modal, toggle } = useModal()
-    const { loading, setLoading } = useLoad()
+    const { loading } = useLoad()
 
     const chooseClient = client => {
         loadLoan()
@@ -37,12 +37,8 @@ const CustomersTable = () => {
     }
 
     useEffect(() => {
-            setTimeout(() => {
-                setLoading(false)
-            }, 3000)
-            setLoading(true)
             loadCustomers()
-    }, [loadCustomers, setLoading])
+    }, [loadCustomers])
 
     const columns = [
         {

@@ -1,11 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useLoad = (initialMode = false) => {
     const [loading, setLoading] = useState(initialMode)
-    // const tableLoading = (estado) => {
-    //     setTimeout(() => {
-    //         setLoading(estado)
-    //     }, 3000)
-    // }
-    return { loading, setLoading }
+    
+    const tableLoading = () => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 2800);
+        setLoading(true)
+    }
+
+    useEffect(() => {
+        tableLoading()
+    }, [])
+
+    return { loading }
 }
