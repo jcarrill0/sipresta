@@ -35,7 +35,7 @@ import { ModalPayment } from 'components/Modal/ModalPayment';
         const [paymentsList, setPaymentsList] = useState([])
         
         const { modal, toggle } = useModal()
-        const { loading } = useLoad()
+        const loading  = useLoad()
 
 
         const loadPayments =  useCallback(

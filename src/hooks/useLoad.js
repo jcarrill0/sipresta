@@ -14,5 +14,5 @@ export const useLoad = (initialMode = false) => {
         tableLoading()
     }, [])
 
-    return { loading }
+    return loading 
 }

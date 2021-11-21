@@ -21,7 +21,7 @@ const CustomersTable = () => {
     const [clientSelected, setClientSelected] = useState(null)
 
     const { modal, toggle } = useModal()
-    const { loading } = useLoad()
+    const loading = useLoad()
 
     const chooseClient = client => {
         loadLoan()

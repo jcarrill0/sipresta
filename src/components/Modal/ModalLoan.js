@@ -49,18 +49,19 @@ export const ModalLoan = ({ modal, toggle, client }) => {
 
     // Lista de pagos
     const createListFees = () => {
-        let calculate = loanCalculate(loan.montoCredito, loan.interes, loan.cuotas)
-        let auxDateLoan = getDateOfPayments(loan.fechaPrestamo, 1)
+        const { montoCredito, interes, cuotas, fechaPrestamo } = loan
+        let calculate = loanCalculate(montoCredito, interes, cuotas)
+        let auxDateLoan = getDateOfPayments(fechaPrestamo, 1)
         let auxBalance = calculate.getAmountTotal()
         let listFees = []
 
-        for (let index = 1; index <= loan.cuotas; index++) {
+        for (let index = 1; index <= cuotas; index++) {
             let fees = {
                 id: index,
                 amount: calculate.getAmountFee(),
                 datePayment: datesByModalPayments(auxDateLoan),
                 status: "pendiente",
-                interes: calculate.getAmountInteres() / loan.cuotas,
+                interes: calculate.getAmountInteres() / cuotas,
                 balance: auxBalance
             }
             listFees.push(fees)
@@ -97,8 +98,21 @@ export const ModalLoan = ({ modal, toggle, client }) => {
                 <LoanForm {...{ client, getInfoLoan, loan, setClientId }} />
             </ModalBody>
             <ModalFooter>
-                <Button className="mr-2" color="danger" type="button" onClick={toggle}>Cancel</Button>
-                <Button color="success" type="button" onClick={addNewLoan}>Agregar Nuevo</Button>
+                <Button 
+                    className="mr-2" 
+                    color="danger" 
+                    type="button" 
+                    onClick={toggle}
+                >
+                    Cancel
+                </Button>
+                <Button 
+                    color="success" 
+                    type="button" 
+                    onClick={addNewLoan}
+                >
+                    Agregar Nuevo
+                </Button>
             </ModalFooter>
         </Modal>
     )

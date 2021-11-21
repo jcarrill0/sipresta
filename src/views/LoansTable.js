@@ -26,7 +26,7 @@ const LoansTable = () => {
     // const [listLoan] = useState(loans)
 
     const { modal, toggle } = useModal()
-    const { loading } = useLoad()
+    const loading = useLoad()
 
     useEffect(() => {
         loadCustomers()
