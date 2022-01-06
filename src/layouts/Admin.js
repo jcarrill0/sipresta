@@ -9,10 +9,16 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
+import { useCustomerStore, useLoanStore } from "store/store";
 
 var ps;
 
 function Dashboard(props) {
+  const loadCustomers = useCustomerStore(state => state.getAllCustomers)
+  const loadLoans = useLoanStore(state => state.getAllLoans)
+
+  const [dataLoading, setDataLoading] = useState(false)
+  
   const [backgroundColor, setBackgroundColor] = useState("black");
   const [activeColor, setActiveColor] = useState("info");
   const mainPanel = useRef();
@@ -23,7 +29,7 @@ function Dashboard(props) {
       ps = new PerfectScrollbar(mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
     }
-    return function cleanup() {
+    return () => {
       if (navigator.platform.indexOf("Win") > -1) {
         ps.destroy();
         document.body.classList.toggle("perfect-scrollbar-on");
@@ -35,6 +41,14 @@ function Dashboard(props) {
     mainPanel.current.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [location]);
+
+  useEffect(() => {
+    if(!dataLoading) {
+      loadCustomers()
+      loadLoans()
+      setDataLoading(true)
+    }
+  }, []) 
 
   // const handleActiveClick = (color) => {
   //   setActiveColor(color);

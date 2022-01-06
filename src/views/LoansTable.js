@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React from 'react'
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
@@ -18,20 +18,16 @@ import { Spinner } from 'components/Spinner/Spinner';
 
 
 const LoansTable = () => {
-    const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const customerList = useCustomerStore(state => state.customerList)
-    const loadLoans = useLoanStore(state => state.getAllLoans)
     const loanList = useLoanStore(state => state.loanList)
-    
-    // const [listLoan] = useState(loans)
 
     const { modal, toggle } = useModal()
     const loading = useLoad()
 
-    useEffect(() => {
-        loadCustomers()
-        loadLoans()
-    }, [loadLoans, loadCustomers])
+    // useEffect(() => {
+    //     loadCustomers()
+    //     loadLoans()
+    // }, [loadLoans, loadCustomers])
 
     const columns = [
         {
@@ -72,9 +68,9 @@ const LoansTable = () => {
             headerStyle: styles.headerStyle,
             style: styles.columnStyle,
             formatter: (cell, {montoCredito, interes}) => {
-                const { getAmountInteres } = loanCalculate(montoCredito, interes)
+                const { amountInteres } = loanCalculate(montoCredito, interes)
                 return (
-                    <span>{getAmountInteres()}</span>
+                    <span>{amountInteres}</span>
                 );
             }
         },
@@ -86,9 +82,9 @@ const LoansTable = () => {
             headerStyle: styles.headerStyle,
             style: styles.columnStyle,
             formatter: (cell, {montoCredito, interes}) => {
-                const { getAmountTotal } = loanCalculate(montoCredito, interes)
+                const { amountTotal } = loanCalculate(montoCredito, interes)
                 return (
-                    <span>{getAmountTotal()}</span>
+                    <span>{amountTotal}</span>
                 );
             }
         },
@@ -186,6 +182,7 @@ const LoansTable = () => {
                     <ModalCalc title="Calculadora de préstamo" >
                         <CalcForm />
                     </ModalCalc>
+                    
                     <BootstrapTable
                         bootstrap4
                         keyField="id"

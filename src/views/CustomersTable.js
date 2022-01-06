@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Button } from 'reactstrap'
 import ReactTooltip from 'react-tooltip'
@@ -13,9 +13,9 @@ import { useLoad } from 'hooks/useLoad'
 import { styles } from './styles/styles'
 
 const CustomersTable = () => {
-    const loadCustomers = useCustomerStore(state => state.getAllCustomers)
-    const loadLoan = useLoanStore(state => state.getAllLoans)
     const customerList = useCustomerStore(state => state.customerList)
+    const deleteCustomer = useCustomerStore(state => state.deleteCustomer)
+    const deleteLoan = useLoanStore(state => state.deleteLoan)
     const loanList = useLoanStore(state => state.loanList)
 
     const [clientSelected, setClientSelected] = useState(null)
@@ -24,7 +24,7 @@ const CustomersTable = () => {
     const loading = useLoad()
 
     const chooseClient = client => {
-        loadLoan()
+        // loadLoan()
         let foundClient = loanList.findIndex(loan => client.id === loan.clienteId)
         
         if(foundClient < 0) {
@@ -36,9 +36,14 @@ const CustomersTable = () => {
         
     }
 
-    useEffect(() => {
-            loadCustomers()
-    }, [loadCustomers])
+    const deleteReg = idCliente => {
+        deleteCustomer(idCliente)
+        deleteLoan(idCliente)
+    }
+
+    // useEffect(() => {
+    //         loadCustomers()
+    // }, [loadCustomers])
 
     const columns = [
         {
@@ -133,7 +138,7 @@ const CustomersTable = () => {
                         <ReactTooltip id="mostrar" place="top" type="dark" effect="solid" />
                         <Button
                             color="danger"
-                            onClick={() => alert(JSON.stringify(row.id))}
+                            onClick={() => deleteReg(row.id)}
                             size='sm'
                             data-tip="Eliminar Cliente"
                             data-for="borrar"

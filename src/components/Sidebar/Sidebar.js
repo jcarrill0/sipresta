@@ -36,12 +36,12 @@ function Sidebar(props) {
       data-active-color={props.activeColor}
     >
       <div className="logo">
-        <a href="https://www.creative-tim.com" className="simple-text logo-mini">
+        <a href="/" className="simple-text logo-mini">
           <div className="logo-img">
             <img src={logo} alt="react-logo" />
           </div>
         </a>
-        <a href="https://www.creative-tim.com" className="simple-text logo-normal">
+        <a href="/" className="simple-text logo-normal">
           SIPRESTA
         </a>
       </div>

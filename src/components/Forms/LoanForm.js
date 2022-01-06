@@ -26,9 +26,7 @@ const styles = {
 }
 
 const LoanForm = ({ client, getInfoLoan, loan, setClientId }) => {
-    // const customerList = useCustomerStore(state => state.customerList)
-    // const [firstName, setFirstName] = useState("")
-    // const [id, setId] = useState("")
+    
     const [customer, setCustomer] = useState(client !== undefined ? client : null)
 
     const { modal, toggle } = useModal()

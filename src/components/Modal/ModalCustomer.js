@@ -52,6 +52,7 @@ export const ModalCustomer = () => {
 
     const [modal, setModal] = useState(false)
     const codeArea = '+506';
+    
     const PHONES_CUSTOMERS = {
         phone1: { code: codeArea, number: '' },
         phone2: { code: codeArea, number: '' }
@@ -70,6 +71,7 @@ export const ModalCustomer = () => {
     const toggle = () => setModal(!modal)
 
     const getInfoCustomer = e => {
+        // TODO: Optimizar código
         if (e.target.name === 'phone1' || e.target.name === 'phone2') {
             setPhoneCustomer({
                 ...phoneCustomer,
@@ -103,13 +105,6 @@ export const ModalCustomer = () => {
         }
     }
 
-    const addNewCustomer = () => {
-        addDataExtra()
-        addCustomer(customer)
-        cleanStates()
-        toggle()
-    }
-
     // Completamos phone, references, addresses and dates
     const addDataExtra = () => {
         reference.phones = Object.values(phoneRef)
@@ -118,6 +113,13 @@ export const ModalCustomer = () => {
         customer.references.push(reference)
         customer.create_at = getCurrentDate()
         customer.update_at = getCurrentDate()
+    }
+
+    const addNewCustomer = () => {
+        addDataExtra()
+        addCustomer(customer)
+        cleanStates()
+        toggle()
     }
 
     const cleanStates = () => {

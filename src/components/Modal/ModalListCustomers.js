@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useCustomerStore } from '../../store/store'
 
@@ -6,12 +6,12 @@ import BootstrapTable from 'react-bootstrap-table-next'
 
 
 export const ModalListCustomers = ({ modalNested, toggleNested, customer }) => {
-    const loadCustomers = useCustomerStore(state => state.getAllCustomers)
+    // const loadCustomers = useCustomerStore(state => state.getAllCustomers)
     const customerList = useCustomerStore(state => state.customerList)
 
-    useEffect(() => {
-        loadCustomers()
-    }, [loadCustomers])
+    // useEffect(() => {
+    //     loadCustomers()
+    // }, [loadCustomers])
 
     const columns = [
         {

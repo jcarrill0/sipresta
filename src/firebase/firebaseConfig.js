@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 // import { 
 //   getAuth, 
 //   createUserWithEmailAndPassword, 
@@ -10,19 +10,21 @@ import 'firebase/firestore'
 
 
 // Your web app's Firebase configuration
+
+
 const firebaseConfig = {
-    apiKey: "AIzaSyB0tThUAmtN2GT7Un5F6iS1zcDEZnbcaoM",
-    authDomain: "sipresta-9c45e.firebaseapp.com",
-    projectId: "sipresta-9c45e",
-    storageBucket: "sipresta-9c45e.appspot.com",    
-    messagingSenderId: "727055212513",
-    appId: "1:727055212513:web:fc908065302f1f91387ca0"
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID
 }
 // Initialize Firebase
-const fb = firebase.initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
 // const auth = getAuth()
 
-export const db = fb.firestore()
+export const db = getFirestore(app)
 
 // export function signup(email, password) {
 //   return createUserWithEmailAndPassword(auth, email, password)

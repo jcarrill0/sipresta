@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'reactstrap';
-import ReactTooltip from 'react-tooltip'
+// import ReactTooltip from 'react-tooltip'
 
 import { useCustomerStore, useLoanStore } from '../store/store'
 import { Spinner } from 'components/Spinner/Spinner'
@@ -28,16 +28,16 @@ import { ModalPayment } from 'components/Modal/ModalPayment';
     // }
 
     const PaymentsTable = () => {
-        const loadCustomers = useCustomerStore(state => state.getAllCustomers)
-        const loadLoans = useLoanStore(state => state.getAllLoans)
-        const customerList = useCustomerStore(state => state.customerList)
         const loanList = useLoanStore(state => state.loanList)
+        const customerList = useCustomerStore(state => state.customerList)
+        // const paymentList = useLoanStore(state => state.getAllPayments)
+
         const [paymentsList, setPaymentsList] = useState([])
         
         const { modal, toggle } = useModal()
         const loading  = useLoad()
 
-
+        // Funcion para cargar todos los pagos en estado pendiente
         const loadPayments =  useCallback(
             () => {
                 if(loanList && loanList.length) {
@@ -49,10 +49,8 @@ import { ModalPayment } from 'components/Modal/ModalPayment';
         )
         
         useEffect(() => {
-            loadCustomers()
-            loadLoans()
             loadPayments()
-        }, [loadLoans, loadCustomers, loadPayments]) 
+        }, [loadPayments]) 
 
         const columns = [
             {

@@ -17,6 +17,9 @@ const initStateLoan = {
     estado: "pendiente",
     nota: "",
     amortizacion: null,
+    montoInteres: null,
+    montoTotal: null,
+    montoCuota: null,
     _createAt: "",
     _updateAt: "",
     _createBy: ""
@@ -37,6 +40,7 @@ export const ModalLoan = ({ modal, toggle, client }) => {
         }
     }
 
+    // funcion que obtiene las fechas de pago segun la modalidad
     const datesByModalPayments = dateLoan => {
         const dateOfPayment = {
             diario: getDateOfPayments(dateLoan, 1),
@@ -47,7 +51,7 @@ export const ModalLoan = ({ modal, toggle, client }) => {
         return dateOfPayment[loan.modalidadPago]
     }
 
-    // Lista de pagos
+    // funcion que crea la lista de pagos (amortizacion)
     const createListFees = () => {
         const { montoCredito, interes, cuotas, fechaPrestamo } = loan
         let calculate = loanCalculate(montoCredito, interes, cuotas)
@@ -72,12 +76,23 @@ export const ModalLoan = ({ modal, toggle, client }) => {
     }
 
     const createLoan = () => {
+        const { montoCredito, interes, cuotas } = loan;
+
+        const { 
+            amountInteres,
+            amountTotal, 
+            amountFee 
+        } = loanCalculate(montoCredito, interes, cuotas);
+
         if (client !== undefined) { 
             loan.clienteId = client.id 
         } else {
             loan.clienteId = clientId
         }
-        loan.amortizacion = createListFees()
+
+        loan.montoInteres = amountInteres
+        loan.montoTotal = amountTotal
+        loan.montoCuota = amountFee
         loan._createAt = getCurrentDate()
         loan._updateAt = getCurrentDate()
     }
